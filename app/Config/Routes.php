@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Pages::login');
 $routes->get('/Login', 'Pages::login');
+$routes->get('spmb-stimik/index.php/Login', 'Pages::login');
 
 
 
