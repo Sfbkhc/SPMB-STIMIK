@@ -7,6 +7,7 @@ use App\Models\PendidikanModel;
 use App\Models\OrangTuaModel;
 use App\Models\DokumentModel;
 use CodeIgniter\Controller;
+use Config\Database;
 
 class DataDiriController extends Controller
 {
@@ -107,6 +108,16 @@ class DataDiriController extends Controller
         if (!empty($fillData)) {
             if (!empty($fillData['data_diri'])) {
                 if ($this->validation->run($fillData['data_diri'], 'data_diri')) {
+                    try {
+                        //code...
+                    } catch (DatabaseException $e) {
+                        $this->response->setJSON([
+                            'status' => 'error',
+                            'erros' => $value,
+                            'errors' => 'error',
+                            'message' => $e->getMessage()
+                        ])
+                    }
                     $this->dataDiriModel->insert($fillData['data_diri']);
                     return $this->response->setJSON([
                         'status' => 'success',
