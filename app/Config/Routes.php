@@ -27,7 +27,8 @@ $routes->post('/Dokument/save', 'Dokument::Submit');
 #--------------------------------------------------------------------
 $routes->post('/User/Login', 'User::login');
 $routes->get('/User', 'User::index');
-$routes->get('/User/Proses', 'User::Proses');
+$routes->get('spmb-stimik/index.php/User/Proses', 
+'User::Proses');
 $routes->post('/save', 'User::Save');
 
 
