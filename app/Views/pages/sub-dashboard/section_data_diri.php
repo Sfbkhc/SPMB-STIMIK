@@ -366,55 +366,303 @@
 
             </div>
         </form>
-        <script>
-            $(document).ready(function() {
-                function checkForms() {
+        <!--<script>-->
+        <!--    $(document).ready(function() {-->
+        <!--        function checkForms() {-->
                     var allFilled = true; // Variabel untuk menyimpan status apakah semua form telah terisi
 
                     // Periksa semua input dalam form #data_diri
-                    $("#data_diri :input").each(function() {
-                        if ($(this).val() === "" && $(this).attr("type") !== "submit") {
+        <!--            $("#data_diri :input").each(function() {-->
+        <!--                if ($(this).val() === "" && $(this).attr("type") !== "submit") {-->
                             allFilled = false; // Jika ada input yang kosong, set variabel menjadi false
                             return false; // Keluar dari loop each
-                        }
-                    });
+        <!--                }-->
+        <!--            });-->
 
                     // Periksa semua input dalam form #pendidikan jika form sebelumnya sudah terisi
-                    if (allFilled) {
-                        $("#pendidikan :input").each(function() {
-                            if ($(this).val() === "" && $(this).attr("type") !== "submit") {
+        <!--            if (allFilled) {-->
+        <!--                $("#pendidikan :input").each(function() {-->
+        <!--                    if ($(this).val() === "" && $(this).attr("type") !== "submit") {-->
                                 allFilled = false; // Jika ada input yang kosong, set variabel menjadi false
                                 return false; // Keluar dari loop each
-                            }
-                        });
-                    }
+        <!--                    }-->
+        <!--                });-->
+        <!--            }-->
 
                     // Periksa semua input dalam form #data_ortu jika form sebelumnya sudah terisi
-                    if (allFilled) {
-                        $("#data_ortu :input").each(function() {
-                            if ($(this).val() === "" && $(this).attr("type") !== "submit") {
+        <!--            if (allFilled) {-->
+        <!--                $("#data_ortu :input").each(function() {-->
+        <!--                    if ($(this).val() === "" && $(this).attr("type") !== "submit") {-->
                                 allFilled = false; // Jika ada input yang kosong, set variabel menjadi false
                                 return false; // Keluar dari loop each
-                            }
-                        });
-                    }
+        <!--                    }-->
+        <!--                });-->
+        <!--            }-->
 
                     // Periksa semua input dalam form #uploadForm jika form sebelumnya sudah terisi
-                    if (allFilled) {
-                        $("#uploadForm :input").each(function() {
-                            if ($(this).val() === "" && $(this).attr("type") !== "submit") {
+        <!--            if (allFilled) {-->
+        <!--                $("#uploadForm :input").each(function() {-->
+        <!--                    if ($(this).val() === "" && $(this).attr("type") !== "submit") {-->
                                 allFilled = false; // Jika ada input yang kosong, set variabel menjadi false
                                 return false; // Keluar dari loop each
-                            }
-                        });
-                    }
+        <!--                    }-->
+        <!--                });-->
+        <!--            }-->
 
                     // Jika semua input telah terisi
-                    if (allFilled) {
+        <!--            if (allFilled) {-->
                         window.location.href = "/halaman-metode-pembayaran"; // Arahkan pengguna ke halaman metode pembayaran
-                    }
+        <!--            }-->
+        <!--        }-->
+        <!--        $('#uploadForm').on('submit', function(event) {-->
+        <!--            event.preventDefault();-->
+
+                    // Menampilkan konfirmasi
+        <!--            Swal.fire({-->
+        <!--                title: "Apa kamu yakin?",-->
+        <!--                showDenyButton: true,-->
+        <!--                showCancelButton: true,-->
+        <!--                confirmButtonText: "Save",-->
+        <!--                denyButtonText: `Don't save`-->
+        <!--            }).then((result) => {-->
+        <!--                if (result.isConfirmed) {-->
+                            // Membuat objek FormData
+        <!--                    var formData = new FormData(this);-->
+
+                            // Mengirim data form
+        <!--                    $.ajax({-->
+                                url: '/Dokument/save', // Ubah URL ini sesuai dengan rute yang sesuai di CI4
+        <!--                        type: 'POST',-->
+        <!--                        data: formData,-->
+        <!--                        processData: false,-->
+        <!--                        contentType: false,-->
+
+        <!--                        success: function(response) {-->
+        <!--                            if (response.status === "success") {-->
+        <!--                                Swal.fire({-->
+        <!--                                    title: 'Berhasil',-->
+        <!--                                    text: 'Data kamu Sudah Tersimpan',-->
+        <!--                                    icon: response.icon-->
+        <!--                                });-->
+
+                                        // checkForms();
+                                        // Menonaktifkan tombol sesuai dengan ID form
+        <!--                                var formId = $('#uploadForm').attr('id');-->
+        <!--                                switch (formId) {-->
+        <!--                                    case 'data_diri':-->
+        <!--                                        $('#uploadButton').prop('disabled', true);-->
+        <!--                                        break;-->
+        <!--                                    case 'pendidikan':-->
+        <!--                                        $('#submitButton_pddk').prop('disabled', true);-->
+        <!--                                        break;-->
+        <!--                                    case 'data_ortu':-->
+        <!--                                        $('#submitButton_ortu').prop('disabled', true);-->
+        <!--                                        break;-->
+        <!--                                    case 'dokument':-->
+        <!--                                        $('#submitButton_dok').prop('disabled', true);-->
+        <!--                                        break;-->
+        <!--                                }-->
+        <!--                            } else {-->
+        <!--                                Swal.fire({-->
+        <!--                                    title: 'Opps..',-->
+        <!--                                    text: response.message,-->
+        <!--                                    icon: response.icon-->
+        <!--                                });-->
+        <!--                            }-->
+        <!--                        }-->
+        <!--                    });-->
+        <!--                } else if (result.isDenied) {-->
+        <!--                    Swal.fire("Pastikan Semua Sudah Benar", "", "info");-->
+        <!--                }-->
+        <!--            });-->
+        <!--        });-->
+        <!--    });-->
+        <!--</script>-->
+    </div>
+</div>
+
+<div id="responseMessage"></div>
+
+<script>
+    $(document).ready(function() {
+     $(document).ready(function() {
+        // Menangani submit untuk form data umum
+        $('#data_diri').on('submit', function(event) {
+            event.preventDefault();
+
+            // Menampilkan konfirmasi
+            Swal.fire({
+                title: "Apa kamu yakin?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Mengambil ID form
+                    var formId = $(this).attr('id');
+
+                    // Mengirim data form
+                    $.ajax({
+                        url: '/formcontroller/submitdata',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.status === "success") {
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data kamu Sudah Tersimpan',
+                                    icon: response.icon
+                                });
+
+                                // Menonaktifkan tombol sesuai dengan ID form
+                                switch (formId) {
+                                    case 'data_diri':
+                                        $('#submitButton_dd').prop('disabled', true);
+                                        break;
+                                    case 'pendidikan':
+                                        $('#submitButton_pddk').prop('disabled', true);
+                                        break;
+                                    case 'data_ortu':
+                                        $('#submitButton_ortu').prop('disabled', true);
+                                        break;
+                                    case 'dokument':
+                                        $('#submitButton_dok').prop('disabled', true);
+                                        break;
+                                }
+                            } else {
+                                Swal.fire({
+                                    title: 'Opps..',
+                                    text: response.message,
+                                    icon: response.icon
+                                });
+                            }
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Pastikan Semua Sudah Benar", "", "info");
                 }
-                $('#uploadForm').on('submit', function(event) {
+            });
+        });
+        
+        $('#pendidikan').on('submit'function(event){
+        event.preventDefault();
+
+            // Menampilkan konfirmasi
+            Swal.fire({
+                title: "Apa kamu yakin?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Mengambil ID form
+                    var formId = $(this).attr('id');
+
+                    // Mengirim data form
+                    $.ajax({
+                        url: '/formcontroller/submitdata/pendidikan',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.status === "success") {
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data kamu Sudah Tersimpan',
+                                    icon: response.icon
+                                });
+
+                                // Menonaktifkan tombol sesuai dengan ID form
+                                switch (formId) {
+                                    case 'data_diri':
+                                        $('#submitButton_dd').prop('disabled', true);
+                                        break;
+                                    case 'pendidikan':
+                                        $('#submitButton_pddk').prop('disabled', true);
+                                        break;
+                                    case 'data_ortu':
+                                        $('#submitButton_ortu').prop('disabled', true);
+                                        break;
+                                    case 'dokument':
+                                        $('#submitButton_dok').prop('disabled', true);
+                                        break;
+                                }
+                            } else {
+                                Swal.fire({
+                                    title: 'Opps..',
+                                    text: response.message,
+                                    icon: response.icon
+                                });
+                            }
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Pastikan Semua Sudah Benar", "", "info");
+                }
+            });
+        });
+        $('#data_ortu').on('submit'function(event){
+        event.preventDefault();
+
+            // Menampilkan konfirmasi
+            Swal.fire({
+                title: "Apa kamu yakin?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Mengambil ID form
+                    var formId = $(this).attr('id');
+
+                    // Mengirim data form
+                    $.ajax({
+                        url: '/formcontroller/submitdata/data_ortu',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.status === "success") {
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: 'Data kamu Sudah Tersimpan',
+                                    icon: response.icon
+                                });
+
+                                // Menonaktifkan tombol sesuai dengan ID form
+                                switch (formId) {
+                                    case 'data_diri':
+                                        $('#submitButton_dd').prop('disabled', true);
+                                        break;
+                                    case 'pendidikan':
+                                        $('#submitButton_pddk').prop('disabled', true);
+                                        break;
+                                    case 'data_ortu':
+                                        $('#submitButton_ortu').prop('disabled', true);
+                                        break;
+                                    case 'dokument':
+                                        $('#submitButton_dok').prop('disabled', true);
+                                        break;
+                                }
+                            } else {
+                                Swal.fire({
+                                    title: 'Opps..',
+                                    text: response.message,
+                                    icon: response.icon
+                                });
+                            }
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Pastikan Semua Sudah Benar", "", "info");
+                }
+            });
+        });
+         $('#uploadForm').on('submit', function(event) {
                     event.preventDefault();
 
                     // Menampilkan konfirmasi
@@ -476,73 +724,7 @@
                         }
                     });
                 });
-            });
-        </script>
-    </div>
-</div>
-
-<div id="responseMessage"></div>
-
-<script>
-    $(document).ready(function() {
-        // Menangani submit untuk form data umum
-        $('#data_diri, #pendidikan, #data_ortu, #dokument').on('submit', function(event) {
-            event.preventDefault();
-
-            // Menampilkan konfirmasi
-            Swal.fire({
-                title: "Apa kamu yakin?",
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "Save",
-                denyButtonText: `Don't save`
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Mengambil ID form
-                    var formId = $(this).attr('id');
-
-                    // Mengirim data form
-                    $.ajax({
-                        url: '/formcontroller/submitdata',
-                        type: 'POST',
-                        data: $(this).serialize(),
-                        dataType: 'JSON',
-                        success: function(response) {
-                            if (response.status === "success") {
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Data kamu Sudah Tersimpan',
-                                    icon: response.icon
-                                });
-
-                                // Menonaktifkan tombol sesuai dengan ID form
-                                switch (formId) {
-                                    case 'data_diri':
-                                        $('#submitButton_dd').prop('disabled', true);
-                                        break;
-                                    case 'pendidikan':
-                                        $('#submitButton_pddk').prop('disabled', true);
-                                        break;
-                                    case 'data_ortu':
-                                        $('#submitButton_ortu').prop('disabled', true);
-                                        break;
-                                    case 'dokument':
-                                        $('#submitButton_dok').prop('disabled', true);
-                                        break;
-                                }
-                            } else {
-                                Swal.fire({
-                                    title: 'Opps..',
-                                    text: response.message,
-                                    icon: response.icon
-                                });
-                            }
-                        }
-                    });
-                } else if (result.isDenied) {
-                    Swal.fire("Pastikan Semua Sudah Benar", "", "info");
-                }
-            });
-        });
+        
+    });
     });
 </script>
