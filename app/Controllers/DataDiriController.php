@@ -122,50 +122,50 @@ class DataDiriController extends Controller
 
         $fillData = [];
 
-        foreach ($data as $categoryname => $category) {
-            foreach ($category as $key => $value) {
-                if (!empty($value)) {
-                    if (!isset($fillData[$categoryname])) {
-                        $fillData[$categoryname] = [];
-                    }
-                    $fillData[$categoryname][$key] = $value;
-                }
-            }
-        }
+        // foreach ($data as $categoryname => $category) {
+        //     foreach ($category as $key => $value) {
+        //         if (!empty($value)) {
+        //             if (!isset($fillData[$categoryname])) {
+        //                 $fillData[$categoryname] = [];
+        //             }
+        //             $fillData[$categoryname][$key] = $value;
+        //         }
+        //     }
+        // }
 
 
 
-            if (!empty($data_diri)) {
-                if ($this->validation->run($fillData['data_diri'], 'data_diri')) {
-                    try {
-                        //code...
-                    } catch (DatabaseException $e) {
-                        $this->response->setJSON([
-                            'status' => 'error',
-                            'erros' => $value,
-                            'errors' => 'error',
-                            'message' => $e->getMessage()
-                        ])
-                    }
-                    $this->dataDiriModel->insert($fillData['data_diri']);
-                    return $this->response->setJSON([
-                        'status' => 'success',
-                        'icon' => 'success',
-                        'model' => 'data_diri',
-                        'message' => 'Data Diri Kamu Berhasil Tersimpan'
-                    ]);
-                } else {
-                    $errors = $this->validation->getErrors();
-                    foreach ($errors as $object => $value) {
-                        return $this->response->setJSON([
-                            'status' => 'error',
-                            'erros' => $value,
-                            'errors' => 'error',
-                            'message' => $value
-                        ]);
-                    }
-                }
-            }
+            // if (!empty($data_diri)) {
+            //     if ($this->validation->run($fillData['data_diri'], 'data_diri')) {
+            //         // try {
+            //         //     //code...
+            //         // } catch (DatabaseException $e) {
+            //         //     $this->response->setJSON([
+            //         //         'status' => 'error',
+            //         //         'erros' => $value,
+            //         //         'errors' => 'error',
+            //         //         'message' => $e->getMessage()
+            //         //     ])
+            //         // }
+            //         $this->dataDiriModel->insert($fillData['data_diri']);
+            //         return $this->response->setJSON([
+            //             'status' => 'success',
+            //             'icon' => 'success',
+            //             'model' => 'data_diri',
+            //             'message' => 'Data Diri Kamu Berhasil Tersimpan'
+            //         ]);
+            //     } else {
+            //         $errors = $this->validation->getErrors();
+            //         foreach ($errors as $object => $value) {
+            //             return $this->response->setJSON([
+            //                 'status' => 'error',
+            //                 'erros' => $value,
+            //                 'errors' => 'error',
+            //                 'message' => $value
+            //             ]);
+            //         }
+            //     }
+            // }
             if (!empty($pendidikan)) {
                 $rules_pendidikan = [ 
                     'nama_pendidikan' => [
@@ -235,7 +235,7 @@ class DataDiriController extends Controller
                     ]
                         ];
                 if ($this->validate($rules_pendidikan)) {
-                    $this->PendidikanModel->insert($fillData['pendidikan']);
+                    $this->PendidikanModel->insert($pendidikan);
                     return $this->response->setJSON([
                         'status' => 'success',
                         'icon' => 'success',
@@ -324,7 +324,7 @@ class DataDiriController extends Controller
                     ]
                         ];
                 if ($this->validate ($data_ortu_rules)) {
-                    $this->dataOrtu->insert($fillData['data_ortu']);
+                    $this->dataOrtu->insert($data_ortu);
                     return $this->response->setJSON([
                         'status' => 'success',
                         'icon' => 'success',
