@@ -134,38 +134,126 @@ class DataDiriController extends Controller
         // }
 
 
-
-            // if (!empty($data_diri)) {
-            //     if ($this->validation->run($fillData['data_diri'], 'data_diri')) {
-            //         // try {
-            //         //     //code...
-            //         // } catch (DatabaseException $e) {
-            //         //     $this->response->setJSON([
-            //         //         'status' => 'error',
-            //         //         'erros' => $value,
-            //         //         'errors' => 'error',
-            //         //         'message' => $e->getMessage()
-            //         //     ])
-            //         // }
-            //         $this->dataDiriModel->insert($fillData['data_diri']);
-            //         return $this->response->setJSON([
-            //             'status' => 'success',
-            //             'icon' => 'success',
-            //             'model' => 'data_diri',
-            //             'message' => 'Data Diri Kamu Berhasil Tersimpan'
-            //         ]);
-            //     } else {
-            //         $errors = $this->validation->getErrors();
-            //         foreach ($errors as $object => $value) {
-            //             return $this->response->setJSON([
-            //                 'status' => 'error',
-            //                 'erros' => $value,
-            //                 'errors' => 'error',
-            //                 'message' => $value
-            //             ]);
-            //         }
-            //     }
-            // }
+            $rules_datadiri = [
+                'name' => [
+            'rules' => 'required|min_length[5]|max_length[100]',
+            'errors' => [
+                'required' => 'Nama lengkap wajib di cc',
+                'min_length' => 'Nama lengkap minimal 3 karakter.',
+                'max_length' => 'Nama lengkap maksimal 255 karakter.'
+            ]
+        ],
+        'nik' => [
+            'rules' => 'required|numeric|min_length[16]|max_length[16]|is_unique[data_diri.nik]',
+            'errors' => [
+                'required' => 'NIK wajib diisi.',
+                'numeric' => 'NIK harus berupa angka.',
+                'min_length' => 'NIK harus terdiri dari 16 angka.',
+                'max_length' => 'NIK harus terdiri dari 16 angka.',
+                'is_unique' => 'NIK Sudah Terdaftar'
+            ]
+        ],
+        'noHp' => [
+            'rules' => 'required|numeric|min_length[10]|max_length[15]|is_unique[data_diri.noHp]',
+            'errors' => [
+                'required' => 'Nomor HP wajib diisi.',
+                'numeric' => 'Nomor HP harus berupa angka.',
+                'min_length' => 'Nomor HP minimal 10 angka.',
+                'max_length' => 'Nomor HP maksimal 15 angka.',
+                'is_unique' => 'Nomor HP sudah Terdaftar'
+            ]
+        ],
+        'email' => [
+            'rules' => 'required|valid_email|is_unique[data_diri.email]',
+            'errors' => [
+                'required' => 'Email wajib diisi.',
+                'valid_email' => 'Format email tidak valid.',
+                'is_unique' => 'Email sudah terdaftar | Gunakan email lain'
+            ]
+        ],
+        'jenisKelamin' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Jenis kelamin wajib dipilih.'
+            ]
+        ],
+        'agama' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Agama wajib dipilih.'
+            ]
+        ],
+        'tempat_lahir' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Tempat lahir wajib diisi.'
+            ]
+        ],
+        'tanggal_lahir' => [
+            'rules' => 'required|valid_date',
+            'errors' => [
+                'required' => 'Tanggal lahir wajib diisi.',
+                'valid_date' => 'Format tanggal tidak valid.'
+            ]
+        ],
+        'alamat' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Alamat wajib diisi.'
+            ]
+        ],
+        'provinsi' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Provinsi wajib dipilih.'
+            ]
+        ],
+        'kota' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Kota/Kabupaten wajib diisi.'
+            ]
+        ],
+        'rt_rw' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'RT/RW wajib diisi.'
+            ]
+        ],
+        'kode_pos' => [
+            'rules' => 'required|numeric|min_length[4]|max_length[5]',
+            'errors' => [
+                'required' => 'Kode Pos wajib diisi.',
+                'numeric' => 'Kode Pos harus berupa angka.',
+                'min_length' => 'Kode Pos harus terdiri dari 5 angka.',
+                'max_length' => 'Kode Pos harus terdiri dari 5 angka.'
+            ]
+        ]
+    ];
+                
+            if (!empty( $data_diri)) {
+                   if ($this->validate($rules_datadiri)) {
+                 
+                    $this->dataDiriModel->insert($data_diri);
+                    return $this->response->setJSON([
+                        'status' => 'success',
+                        'icon' => 'success',
+                        'model' => 'data_diri',
+                        'message' => 'Data Diri Kamu Berhasil Tersimpan'
+                    ]);
+                } else {
+                    $errors = $this->validation->getErrors();
+                    foreach ($errors as $object => $value) {
+                        return $this->response->setJSON([
+                            'status' => 'error',
+                            'erros' => $value,
+                            'errors' => 'error',
+                            'message' => $value
+                        ]);
+                    }
+                }
+            }
+            
             if (!empty($pendidikan)) {
                 $rules_pendidikan = [ 
                     'nama_pendidikan' => [
@@ -257,6 +345,7 @@ class DataDiriController extends Controller
                 }
             }
             if (!empty($data_ortu)) {
+                
                 $data_ortu_rules = [ 
                     'nama_ayah' => [
                         'rules' => 'required|min_length[3]|max_length[100]',
@@ -323,7 +412,7 @@ class DataDiriController extends Controller
                         ]
                     ]
                         ];
-                if ($this->validate ($data_ortu_rules)) {
+                if ($this->validate($data_ortu_rules)) {
                     $this->dataOrtu->insert($data_ortu);
                     return $this->response->setJSON([
                         'status' => 'success',

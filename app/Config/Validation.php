@@ -41,102 +41,102 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
-    public $data_diri = [
-        'name' => [
-            'rules' => 'required|min_length[5]|max_length[100]',
-            'errors' => [
-                'required' => 'Nama lengkap wajib di isi.',
-                'min_length' => 'Nama lengkap minimal 3 karakter.',
-                'max_length' => 'Nama lengkap maksimal 255 karakter.'
-            ]
-        ],
-        'nik' => [
-            'rules' => 'required|numeric|min_length[16]|max_length[16]|is_unique[data_diri.nik]',
-            'errors' => [
-                'required' => 'NIK wajib diisi.',
-                'numeric' => 'NIK harus berupa angka.',
-                'min_length' => 'NIK harus terdiri dari 16 angka.',
-                'max_length' => 'NIK harus terdiri dari 16 angka.',
-                'is_unique' => 'NIK Sudah Terdaftar'
-            ]
-        ],
-        'noHp' => [
-            'rules' => 'required|numeric|min_length[10]|max_length[15]|is_unique[data_diri.noHp]',
-            'errors' => [
-                'required' => 'Nomor HP wajib diisi.',
-                'numeric' => 'Nomor HP harus berupa angka.',
-                'min_length' => 'Nomor HP minimal 10 angka.',
-                'max_length' => 'Nomor HP maksimal 15 angka.',
-                'is_unique' => 'Nomor HP sudah Terdaftar'
-            ]
-        ],
-        'email' => [
-            'rules' => 'required|valid_email|is_unique[data_diri.email]',
-            'errors' => [
-                'required' => 'Email wajib diisi.',
-                'valid_email' => 'Format email tidak valid.',
-                'is_unique' => 'Email sudah terdaftar | Gunakan email lain'
-            ]
-        ],
-        'jenisKelamin' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Jenis kelamin wajib dipilih.'
-            ]
-        ],
-        'agama' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Agama wajib dipilih.'
-            ]
-        ],
-        'tempatLahir' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Tempat lahir wajib diisi.'
-            ]
-        ],
-        'tanggalLahir' => [
-            'rules' => 'required|valid_date',
-            'errors' => [
-                'required' => 'Tanggal lahir wajib diisi.',
-                'valid_date' => 'Format tanggal tidak valid.'
-            ]
-        ],
-        'alamat' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Alamat wajib diisi.'
-            ]
-        ],
-        'provinsi' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Provinsi wajib dipilih.'
-            ]
-        ],
-        'kotaKabupaten' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Kota/Kabupaten wajib diisi.'
-            ]
-        ],
-        'rtRw' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'RT/RW wajib diisi.'
-            ]
-        ],
-        'kodePos' => [
-            'rules' => 'required|numeric|min_length[4]|max_length[5]',
-            'errors' => [
-                'required' => 'Kode Pos wajib diisi.',
-                'numeric' => 'Kode Pos harus berupa angka.',
-                'min_length' => 'Kode Pos harus terdiri dari 5 angka.',
-                'max_length' => 'Kode Pos harus terdiri dari 5 angka.'
-            ]
-        ]
-    ];
+    // public $data_diri = [
+    //     'name' => [
+    //         'rules' => 'required|min_length[5]|max_length[100]',
+    //         'errors' => [
+    //             'required' => 'Nama lengkap wajib di ',
+    //             'min_length' => 'Nama lengkap minimal 3 karakter.',
+    //             'max_length' => 'Nama lengkap maksimal 255 karakter.'
+    //         ]
+    //     ],
+    //     'nik' => [
+    //         'rules' => 'required|numeric|min_length[16]|max_length[16]|is_unique[data_diri.nik]',
+    //         'errors' => [
+    //             'required' => 'NIK wajib diisi.',
+    //             'numeric' => 'NIK harus berupa angka.',
+    //             'min_length' => 'NIK harus terdiri dari 16 angka.',
+    //             'max_length' => 'NIK harus terdiri dari 16 angka.',
+    //             'is_unique' => 'NIK Sudah Terdaftar'
+    //         ]
+    //     ],
+    //     'noHp' => [
+    //         'rules' => 'required|numeric|min_length[10]|max_length[15]|is_unique[data_diri.noHp]',
+    //         'errors' => [
+    //             'required' => 'Nomor HP wajib diisi.',
+    //             'numeric' => 'Nomor HP harus berupa angka.',
+    //             'min_length' => 'Nomor HP minimal 10 angka.',
+    //             'max_length' => 'Nomor HP maksimal 15 angka.',
+    //             'is_unique' => 'Nomor HP sudah Terdaftar'
+    //         ]
+    //     ],
+    //     'email' => [
+    //         'rules' => 'required|valid_email|is_unique[data_diri.email]',
+    //         'errors' => [
+    //             'required' => 'Email wajib diisi.',
+    //             'valid_email' => 'Format email tidak valid.',
+    //             'is_unique' => 'Email sudah terdaftar | Gunakan email lain'
+    //         ]
+    //     ],
+    //     'jenisKelamin' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Jenis kelamin wajib dipilih.'
+    //         ]
+    //     ],
+    //     'agama' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Agama wajib dipilih.'
+    //         ]
+    //     ],
+    //     'tempatLahir' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Tempat lahir wajib diisi.'
+    //         ]
+    //     ],
+    //     'tanggalLahir' => [
+    //         'rules' => 'required|valid_date',
+    //         'errors' => [
+    //             'required' => 'Tanggal lahir wajib diisi.',
+    //             'valid_date' => 'Format tanggal tidak valid.'
+    //         ]
+    //     ],
+    //     'alamat' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Alamat wajib diisi.'
+    //         ]
+    //     ],
+    //     'provinsi' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Provinsi wajib dipilih.'
+    //         ]
+    //     ],
+    //     'kotaKabupaten' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'Kota/Kabupaten wajib diisi.'
+    //         ]
+    //     ],
+    //     'rtRw' => [
+    //         'rules' => 'required',
+    //         'errors' => [
+    //             'required' => 'RT/RW wajib diisi.'
+    //         ]
+    //     ],
+    //     'kodePos' => [
+    //         'rules' => 'required|numeric|min_length[4]|max_length[5]',
+    //         'errors' => [
+    //             'required' => 'Kode Pos wajib diisi.',
+    //             'numeric' => 'Kode Pos harus berupa angka.',
+    //             'min_length' => 'Kode Pos harus terdiri dari 5 angka.',
+    //             'max_length' => 'Kode Pos harus terdiri dari 5 angka.'
+    //         ]
+    //     ]
+    // ];
 
     public $pendidikan = [
         'nama_pendidikan' => [
