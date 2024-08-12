@@ -8,9 +8,12 @@ use App\Models\PendidikanModel;
 class form_pendidikan extends Controller
 {
     protected $db;
+     protected $session;
     public function __construct()
     {
         $this->db = new PendidikanModel ();
+          $this->session = \Config\Services::session();
+                $this->validation = \Config\Services::validation();
     }
     public function Create()
     {
@@ -97,7 +100,7 @@ class form_pendidikan extends Controller
                 ]
                     ];
             if ($this->validate($rules_pendidikan)) {
-                $this->PendidikanModel->insert($pendidikan);
+                $this->db->insert($pendidikan);
                 return $this->response->setJSON([
                     'status' => 'success',
                     'icon' => 'success',

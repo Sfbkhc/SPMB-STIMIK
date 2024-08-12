@@ -6,10 +6,14 @@ use CodeIgniter\Controller;
 use App\Models\OrangTuaModel;
 class form_data_ortu  extends Controller
 {
-    protected $db;
+     protected $db;
+     protected $session;
     public function __construct()
     {
         $this->db = new OrangTuaModel (); 
+              $this->session = \Config\Services::session();
+                $this->validation = \Config\Services::validation();
+    }
         public function Create()
         {
             $userId = $this->session->get('user_id');
@@ -94,7 +98,7 @@ class form_data_ortu  extends Controller
                 ]
                     ];
             if ($this->validate($data_ortu_rules)) {
-                $this->dataOrtu->insert($data_ortu);
+                $this->db->insert($data_ortu);
                 return $this->response->setJSON([
                     'status' => 'success',
                     'icon' => 'success',
@@ -115,6 +119,5 @@ class form_data_ortu  extends Controller
         }
     
 }
- }
 }
 
