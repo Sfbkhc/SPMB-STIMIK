@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Pages::login');
+$routes->get('spmb-stimik', 'Pages::login');
 $routes->get('/Login', 'Pages::login');
 $routes->get('spmb-stimik/index.php/Login', 'Pages::login');
 

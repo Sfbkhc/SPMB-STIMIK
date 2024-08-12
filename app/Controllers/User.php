@@ -187,7 +187,7 @@ class User extends BaseController
             }
         } else {
             session()->setFlashdata('error', 'Email tidak ditemukan');
-            return redirect()->back()->withInput();
+             return redirect()->back()->withInput();
         }
     }
 }
