@@ -32,8 +32,51 @@ class DataDiriController extends Controller
     {
         $userId = $this->session->get('user_id');
 
-        $data = [
-            'data_diri' => [
+        // $data = [
+        //     'data_diri' => [
+        //         'id' => $userId,
+        //         'name' => $this->request->getPost('name'),
+        //         'nik' => $this->request->getPost('nik'),
+        //         'noHp' => $this->request->getPost('noHp'),
+        //         'email' => $this->request->getPost('email'),
+        //         'jenisKelamin' => $this->request->getPost('jenisKelamin'),
+        //         'agama' => $this->request->getPost('agama'),
+        //         'tempatLahir' => $this->request->getPost('tempat_lahir'),
+        //         'tanggalLahir' => $this->request->getPost('tanggal_lahir'),
+        //         'alamat' => $this->request->getPost('alamat'),
+        //         'provinsi' => $this->request->getPost('provinsi'),
+        //         'kotaKabupaten' => $this->request->getPost('kota'),
+        //         'rtRw' => $this->request->getPost('rt_rw'),
+        //         'kodePos' => $this->request->getPost('kode_pos'),
+        //     ],
+
+        //     'pendidikan' => [
+        //         'id' => $userId,
+        //         'nama_pendidikan' => $this->request->getPost('nama_pendidikan'),
+        //         'nisn' => $this->request->getPost('nisn'),
+        //         'provinsi_pendidikan' => $this->request->getPost('provinsi_pendidikan'),
+        //         'kota_kabupaten_pendidikan' => $this->request->getPost('kota_kabupaten_pendidikan'),
+        //         'nama_sekolah' => $this->request->getPost('nama_sekolah'),
+        //         'jurusan' => $this->request->getPost('jurusan'),
+        //         'tahun_lulus' => $this->request->getPost('tahun_lulus'),
+        //         'no_ijazah' => $this->request->getPost('no_ijazah'),
+        //         'tanggal_ijazah' => $this->request->getPost('tanggal_ijazah'),
+        //         'nilai_un' => $this->request->getPost('nilai_un')
+        //     ],
+
+        //     'data_ortu' => [
+        //         'id' => $userId,
+        //         'nama_ayah' => $this->request->getPost('nama_ayah'),
+        //         'pekerjaan_ayah' => $this->request->getPost('pekerjaan_ayah'),
+        //         'pendidikan_ayah' => $this->request->getPost('pendidikan_ayah'),
+        //         'no_hp_ayah' => $this->request->getPost('no_hp_ayah'),
+        //         'nama_ibu' => $this->request->getPost('nama_ibu'),
+        //         'pekerjaan_ibu' => $this->request->getPost('pekerjaan_ibu'),
+        //         'pendidikan_ibu' => $this->request->getPost('pendidikan_ibu'),
+        //         'no_hp_ibu' => $this->request->getPost('no_hp_ibu')
+        //     ],
+        // ];
+        $data_diri = [
                 'id' => $userId,
                 'name' => $this->request->getPost('name'),
                 'nik' => $this->request->getPost('nik'),
@@ -47,35 +90,8 @@ class DataDiriController extends Controller
                 'provinsi' => $this->request->getPost('provinsi'),
                 'kotaKabupaten' => $this->request->getPost('kota'),
                 'rtRw' => $this->request->getPost('rt_rw'),
-                'kodePos' => $this->request->getPost('kode_pos'),
-            ],
-
-            'pendidikan' => [
-                'id' => $userId,
-                'nama_pendidikan' => $this->request->getPost('nama_pendidikan'),
-                'nisn' => $this->request->getPost('nisn'),
-                'provinsi_pendidikan' => $this->request->getPost('provinsi_pendidikan'),
-                'kota_kabupaten_pendidikan' => $this->request->getPost('kota_kabupaten_pendidikan'),
-                'nama_sekolah' => $this->request->getPost('nama_sekolah'),
-                'jurusan' => $this->request->getPost('jurusan'),
-                'tahun_lulus' => $this->request->getPost('tahun_lulus'),
-                'no_ijazah' => $this->request->getPost('no_ijazah'),
-                'tanggal_ijazah' => $this->request->getPost('tanggal_ijazah'),
-                'nilai_un' => $this->request->getPost('nilai_un')
-            ],
-
-            'data_ortu' => [
-                'id' => $userId,
-                'nama_ayah' => $this->request->getPost('nama_ayah'),
-                'pekerjaan_ayah' => $this->request->getPost('pekerjaan_ayah'),
-                'pendidikan_ayah' => $this->request->getPost('pendidikan_ayah'),
-                'no_hp_ayah' => $this->request->getPost('no_hp_ayah'),
-                'nama_ibu' => $this->request->getPost('nama_ibu'),
-                'pekerjaan_ibu' => $this->request->getPost('pekerjaan_ibu'),
-                'pendidikan_ibu' => $this->request->getPost('pendidikan_ibu'),
-                'no_hp_ibu' => $this->request->getPost('no_hp_ibu')
-            ],
-        ];
+                'kodePos' => $this->request->getPost('kode_pos')
+            ];
 
         $pendidikan = [
             'id' => $userId,
@@ -90,6 +106,19 @@ class DataDiriController extends Controller
             'tanggal_ijazah' => $this->request->getPost('tanggal_ijazah'),
             'nilai_un' => $this->request->getPost('nilai_un')
         ];
+        $data_ortu = [
+                    'id' => $userId,
+                    'nama_ayah' => $this->request->getPost('nama_ayah'),
+                    'pekerjaan_ayah' => $this->request->getPost('pekerjaan_ayah'),
+                    'pendidikan_ayah' => $this->request->getPost('pendidikan_ayah'),
+                    'no_hp_ayah' => $this->request->getPost('no_hp_ayah'),
+                    'nama_ibu' => $this->request->getPost('nama_ibu'),
+                    'pekerjaan_ibu' => $this->request->getPost('pekerjaan_ibu'),
+                    'pendidikan_ibu' => $this->request->getPost('pendidikan_ibu'),
+                    'no_hp_ibu' => $this->request->getPost('no_hp_ibu')
+            
+            ];
+    
 
         $fillData = [];
 
@@ -105,8 +134,8 @@ class DataDiriController extends Controller
         }
 
 
-        if (!empty($fillData)) {
-            if (!empty($fillData['data_diri'])) {
+
+            if (!empty($data_diri)) {
                 if ($this->validation->run($fillData['data_diri'], 'data_diri')) {
                     try {
                         //code...
@@ -138,7 +167,7 @@ class DataDiriController extends Controller
                 }
             }
             if (!empty($pendidikan)) {
-                if ($this->validate([
+                $rules_pendidikan = [ 
                     'nama_pendidikan' => [
                         'rules' => 'required',
                         'errors' => [
@@ -204,7 +233,8 @@ class DataDiriController extends Controller
                             'numeric' => 'Nilai UN harus berupa angka.'
                         ]
                     ]
-                ])) {
+                        ];
+                if ($this->validate($rules_pendidikan)) {
                     $this->PendidikanModel->insert($fillData['pendidikan']);
                     return $this->response->setJSON([
                         'status' => 'success',
@@ -226,8 +256,74 @@ class DataDiriController extends Controller
                     }
                 }
             }
-            if (!empty($fillData['data_ortu'])) {
-                if ($this->validation->run($fillData['data_ortu'], 'DataOrtuRules')) {
+            if (!empty($data_ortu)) {
+                $data_ortu_rules = [ 
+                    'nama_ayah' => [
+                        'rules' => 'required|min_length[3]|max_length[100]',
+                        'errors' => [
+                            'required' => 'Nama Ayah wajib diisi.',
+                            'min_length' => 'Nama Ayah minimal 3 karakter.',
+                            'max_length' => 'Nama Ayah maksimal 100 karakter.'
+                        ]
+                    ],
+                    'pekerjaan_ayah' => [
+                        'rules' => 'required|min_length[3]|max_length[100]',
+                        'errors' => [
+                            'required' => 'Pekerjaan Ayah wajib diisi.',
+                            'min_length' => 'Pekerjaan Ayah minimal 3 karakter.',
+                            'max_length' => 'Pekerjaan Ayah maksimal 100 karakter.'
+                        ]
+                    ],
+                    'pendidikan_ayah' => [
+                        'rules' => 'required|in_list[SD,SMP,SMA/SMK,D1,D3,S1,S2,S3]',
+                        'errors' => [
+                            'required' => 'Pendidikan Ayah wajib dipilih.',
+                            'in_list' => 'Pendidikan Ayah harus salah satu dari: SD, SMP, SMA/SMK, D1, D3, S1, S2, S3.'
+                        ]
+                    ],
+                    'no_hp_ayah' => [
+                        'rules' => 'required|numeric|min_length[10]|max_length[15]',
+                        'errors' => [
+                            'required' => 'No. HP Ayah wajib diisi.',
+                            'numeric' => 'No. HP Ayah harus berupa angka.',
+                            'min_length' => 'No. HP Ayah minimal 10 karakter.',
+                            'max_length' => 'No. HP Ayah maksimal 15 karakter.'
+                        ]
+                    ],
+                    'nama_ibu' => [
+                        'rules' => 'required|min_length[3]|max_length[100]',
+                        'errors' => [
+                            'required' => 'Nama Ibu wajib diisi.',
+                            'min_length' => 'Nama Ibu minimal 3 karakter.',
+                            'max_length' => 'Nama Ibu maksimal 100 karakter.'
+                        ]
+                    ],
+                    'pekerjaan_ibu' => [
+                        'rules' => 'required|min_length[3]|max_length[100]',
+                        'errors' => [
+                            'required' => 'Pekerjaan Ibu wajib diisi.',
+                            'min_length' => 'Pekerjaan Ibu minimal 3 karakter.',
+                            'max_length' => 'Pekerjaan Ibu maksimal 100 karakter.'
+                        ]
+                    ],
+                    'pendidikan_ibu' => [
+                        'rules' => 'required|in_list[SD,SMP,SMA/SMK,D1,D3,S1,S2,S3]',
+                        'errors' => [
+                            'required' => 'Pendidikan Ibu wajib dipilih.',
+                            'in_list' => 'Pendidikan Ibu harus salah satu dari: SD, SMP, SMA/SMK, D1, D3, S1, S2, S3.'
+                        ]
+                    ],
+                    'no_hp_ibu' => [
+                        'rules' => 'required|numeric|min_length[10]|max_length[15]',
+                        'errors' => [
+                            'required' => 'No. HP Ibu wajib diisi.',
+                            'numeric' => 'No. HP Ibu harus berupa angka.',
+                            'min_length' => 'No. HP Ibu minimal 10 karakter.',
+                            'max_length' => 'No. HP Ibu maksimal 15 karakter.'
+                        ]
+                    ]
+                        ];
+                if ($this->validate ($data_ortu_rules)) {
                     $this->dataOrtu->insert($fillData['data_ortu']);
                     return $this->response->setJSON([
                         'status' => 'success',
@@ -247,7 +343,7 @@ class DataDiriController extends Controller
                     }
                 }
             }
-        }
+        
     }
 
     private function getModel($categoryname)
