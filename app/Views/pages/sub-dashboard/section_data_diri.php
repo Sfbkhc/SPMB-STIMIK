@@ -436,62 +436,85 @@ $(document).ready(function() {
 
     // Penanganan khusus untuk form upload (FormData)
     $('#uploadForm').on('submit', function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        Swal.fire({
-            title: "Apa kamu yakin?",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Save",
-            denyButtonText: `Don't save`
-        }).then((result) => {
-            if (result.isConfirmed)   
- {
-               
+    Swal.fire({
+        title: "Apa kamu yakin?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Tambahkan CSS ke loader-wrapper untuk posisi tengah dan blur background
+            $('#loader-wrapper').css({
+                'position': 'fixed',
+                'top': '0',
+                'left': '0',
+                'width': '100%',
+                'height': '100%',
+                'display': 'flex',
+                'justify-content': 'center',
+                'align-items': 'center',
+                'background-color': 'rgba(255, 255, 255, 0.7)',
+                'z-index': '1000'
+            });
 
-                var formData = new FormData(this); 
+            // Tambahkan efek blur pada seluruh halaman
+            $('body').css('filter', 'blur(5px)');
 
-                $.ajax({
-                    url: '/Dokument/save', 
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                                 
-                        if (response.status === "success") {
-                            Swal.fire({
-                                title:   
- 'Berhasil',
-                                text: 'Data kamu Sudah Tersimpan',
-                                icon: response.icon
-                            });
+            // Tampilkan loader
+            $('#loader-wrapper').show();
 
-                            // Menonaktifkan tombol setelah berhasil menyimpan
-                            $('#uploadButton').prop('disabled', true); 
-                        } else {
-                            Swal.fire({
-                                title: 'Opps..',
-                                text: response.message,
-                                icon: response.icon
-                            });
-                        }
-                    },
-                            
-                    error: function() {
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '/Dokument/save',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Sembunyikan loader dan hapus efek blur setelah data berhasil dikirim
+                    $('#loader-wrapper').hide();
+                    $('body').css('filter', 'none');
+
+                    if (response.status === "success") {
                         Swal.fire({
-                            title: 'Error!',
-                            text: 'Terjadi kesalahan saat mengirim data.',
-                            icon: 'error'
+                            title: 'Berhasil',
+                            text: 'Data kamu Sudah Tersimpan',
+                            icon: response.icon
+                        });
+
+                        // Menonaktifkan tombol setelah berhasil menyimpan
+                        $('#uploadButton').prop('disabled', true);
+                    } else {
+                        Swal.fire({
+                            title: 'Opps..',
+                            text: response.message,
+                            icon: response.icon
                         });
                     }
-                });
-            } else if (result.isDenied) {
-                        
-                Swal.fire("Pastikan Semua Sudah Benar", "", "info");
-            }
-        });
+                },
+                error: function() {
+                    // Sembunyikan loader dan hapus efek blur jika terjadi error
+                    $('#loader-wrapper').hide();
+                    $('body').css('filter', 'none');
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Terjadi kesalahan saat mengirim data.',
+                        icon: 'error'
+                    });
+                }
+            });
+        } else if (result.isDenied) {
+            Swal.fire("Pastikan Semua Sudah Benar", "", "info");
+        }
     });
+});
+
+     
 });
 </script>
 
