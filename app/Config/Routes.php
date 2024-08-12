@@ -13,8 +13,7 @@ $routes->get('spmb-stimik/index.php/Login', 'Pages::login');
 
 // DASHBOARD
 $routes->get('/Dashboard', 'User::dashboard');
-$routes->get('spmb-stimik/index.php/Dashboard', 
-'User::dashboard');
+$routes->get('spmb-stimik/index.php/Dashboard', 'User::dashboard');
 $routes->get('/Dashboard/Logout', 'User::Logout');
 $routes->post('/Dashboard/Dokument', 'DataDiriController::dokument');
 

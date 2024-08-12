@@ -225,7 +225,8 @@ class DataDiriController extends Controller
                     }
                 }
             }
-    private function getModel($categoryname)
+
+ function getModel($categoryname)
     {
         switch ($categoryname) {
             case 'data_diri':
@@ -240,4 +241,5 @@ class DataDiriController extends Controller
                 return null;
         }
     }
+}
 }
