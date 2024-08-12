@@ -104,11 +104,14 @@ class Dokument extends Controller
                 }
             } else {
                 $errors = $this->validation->getErrors();
-                return $this->response->setJSON([
+                foreach ($errors as $key => $value) {
+   return $this->response->setJSON([
                     'status' => 'error',
-                    'message' => $errors,
+                    'message' => $value,
                     'icon' => 'info'
                 ]);
+}
+                
             }
         }
 

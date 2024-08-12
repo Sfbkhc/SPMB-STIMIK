@@ -364,6 +364,11 @@
         </form>
     </div>
 </div>
+<div id="loader-wrapper" style="display: none;">
+    <div id="loader" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 
 <script>
 $(document).ready(function() {
@@ -387,6 +392,8 @@ $(document).ready(function() {
                         data: $(this).serialize(), 
                         dataType: 'JSON',
                         success: function(response) {
+                              $('#loader-wrapper').hide();
+                    $('body').removeClass('blur-background');
                             if (response.status === "success") {
                                 Swal.fire({
                                     title: 'Berhasil',
@@ -397,6 +404,8 @@ $(document).ready(function() {
                                 // Menonaktifkan tombol setelah berhasil menyimpan
                                 $(formId + ' button[type="submit"]').prop('disabled', true);
                             } else {
+                                  $('#loader-wrapper').hide();
+                    $('body').removeClass('blur-background');
                                 Swal.fire({
                                     title: 'Opps..',
                                     text: response.message,
@@ -438,6 +447,8 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed)   
  {
+               
+
                 var formData = new FormData(this); 
 
                 $.ajax({
@@ -447,6 +458,7 @@ $(document).ready(function() {
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                                 
                         if (response.status === "success") {
                             Swal.fire({
                                 title:   
@@ -465,6 +477,7 @@ $(document).ready(function() {
                             });
                         }
                     },
+                            
                     error: function() {
                         Swal.fire({
                             title: 'Error!',
@@ -474,6 +487,7 @@ $(document).ready(function() {
                     }
                 });
             } else if (result.isDenied) {
+                        
                 Swal.fire("Pastikan Semua Sudah Benar", "", "info");
             }
         });
