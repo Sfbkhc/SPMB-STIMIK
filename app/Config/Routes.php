@@ -6,17 +6,20 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Pages::login');
-$routes->get('spmb-stimik', 'Pages::login');
+// $routes->get('spmb-stimik', 'Pages::login');
 $routes->get('/Login', 'Pages::login');
 $routes->get('spmb-stimik/index.php/Login', 'Pages::login');
 
 
 
 // DASHBOARD
+
 $routes->get('/Dashboard', 'User::dashboard');
-$routes->get('spmb-stimik/index.php/Dashboard', 
-'User::dashboard');
+
+
+
 $routes->get('/Dashboard/Logout', 'User::Logout');
+
 $routes->post('/Dashboard/Dokument', 'DataDiriController::dokument');
 
 #--------------------------------------------------------------------
