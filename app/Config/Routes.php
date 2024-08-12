@@ -18,9 +18,28 @@ $routes->get('spmb-stimik/index.php/Dashboard',
 $routes->get('/Dashboard/Logout', 'User::Logout');
 $routes->post('/Dashboard/Dokument', 'DataDiriController::dokument');
 
+#--------------------------------------------------------------------
+# DASHBOARD
+#--------------------------------------------------------------------
+
 // DASHBOARD->DataDiriModel()
 $routes->post('/formcontroller/submitdata', 'DataDiriController::Create');
+
+// DASHBOARD-> PendidikanModel
+
+$routes->post('/formcontroller/submitdata/pendidikan', 'form_pendidikan::Create');
+
+//DASHBOARD-> OrangTuaModel
+
+$routes->post('/formcontroller/submitdata/data_ortu', 'form_data_ortu::Create');
+
+//DASHBOARD-> DokumentModel
 $routes->post('/Dokument/save', 'Dokument::Submit');
+
+
+#--------------------------------------------------------------------
+# DASHBOARD
+#--------------------------------------------------------------------
 
 
 
