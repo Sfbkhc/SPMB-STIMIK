@@ -11,7 +11,7 @@
             setTimeout(function() {
                 document.getElementById('message mt-3').innerText = '<?= $NewText; ?>';
                 setTimeout(function() {
-                    window.location.href = '/Login';
+                    window.location.href = '/Dashboard';
                 }, 1000);
             }, 3000);
         </script>

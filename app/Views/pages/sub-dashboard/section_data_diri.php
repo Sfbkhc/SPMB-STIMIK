@@ -36,7 +36,7 @@
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <label for="nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" name="name" class="form-control" id="nama" value="<?= $users['username']; ?>">
+                        <input type="text" name="name" class="form-control" id="nama">
                         <p style="font-size: 8px;" class="pt-1 px-2">* Lengkapi Nama Anda</p>
                     </div>
                     <div class="col-md-6">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" value="<?= $users['email']; ?>">
+                        <input type="email" name="email" class="form-control" id="email">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -152,7 +152,7 @@
                         <input name="kode_pos" type="text" inputmode="numeric" class="form-control" id="kode_pos" placeholder="Masukkan kode pos">
                     </div>
                 </div>
-                <button id="submitButton_dd" type="submit" class="btn btn-primary">Simpan</button>
+                <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                 <!-- <button id="submitButton" type="submit" class="btn btn-primary">Edit</button> -->
             </div>
         </form>
@@ -236,7 +236,7 @@
                             <input type="text" class="form-control" id="nilai_un" name="nilai_un" placeholder="Masukkan nilai UN">
                         </div>
                     </div>
-                    <button id="submitButton_pddk" type="submit" class="btn btn-primary">Simpan</button>
+                    <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
 
@@ -305,7 +305,7 @@
                             <input type="tel" class="form-control" id="no_hp_ibu" name="no_hp_ibu" placeholder="Masukkan nomor HP ibu">
                         </div>
                     </div>
-                    <button id="submitButton_ortu" type="submit" class="btn btn-primary">Simpan</button>
+                    <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
 
@@ -372,6 +372,58 @@
 
 <script>
 $(document).ready(function() {
+    
+     function loadFormData() {
+        $.ajax({
+            url: '/Dashboard',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Isi data ke form
+                if (data.users) {
+                    $('#email').val(data.users.email);
+                    $('#username').val(data.users.username);
+                }
+                if (data.data_diri) {
+                    $('#nama').val(data.data_diri.nama);
+                    $('#nik').val(data.data_diri.nik);
+                    $('#tempat_lahir').val(data.data_diri.tempat_lahir);
+                    $('#tanggal_lahir').val(data.data_diri.tanggal_lahir);
+                    $('#jenis_kelamin').val(data.data_diri.jenis_kelamin);
+                    $('#alamat').val(data.data_diri.alamat);
+                    $('#kota').val(data.data_diri.kota);
+                    $('#provinsi').val(data.data_diri.provinsi);
+                    $('#kode_pos').val(data.data_diri.kode_pos);
+                }
+                if (data.pendidikan) {
+                    $('#jenjang').val(data.pendidikan.jenjang);
+                    $('#nama_pendidikan').val(data.pendidikan.nama_pendidikan);
+                    $('#tahun_lulus').val(data.pendidikan.tahun_lulus);
+                    $('#jurusan').val(data.pendidikan.jurusan);
+                    $('#nilai_akhir').val(data.pendidikan.nilai_akhir);
+                }
+                if (data.ortu) {
+                    $('#nama_ayah').val(data.ortu.nama_ayah);
+                    $('#nama_ibu').val(data.ortu.nama_ibu);
+                    $('#pekerjaan_ayah').val(data.ortu.pekerjaan_ayah);
+                    $('#pekerjaan_ibu').val(data.ortu.pekerjaan_ibu);
+                    $('#alamat_ortu').val(data.ortu.alamat_ortu);
+                    $('#kota_ortu').val(data.ortu.kota_ortu);
+                    $('#provinsi_ortu').val(data.ortu.provinsi_ortu);
+                    $('#kode_pos_ortu').val(data.ortu.kode_pos_ortu);
+                    $('#phone_ortu').val(data.ortu.phone_ortu);
+                }
+            },
+            error: function() {
+                alert('Gagal memuat data. Silakan coba lagi.');
+            }
+        });
+    }
+
+    // Panggil fungsi untuk memuat data saat dokumen siap
+    loadFormData();
+    
+    
     // Fungsi untuk menangani pengiriman formulir dengan AJAX
     function submitForm(formId, url) {
         $(formId).on('submit', function(event) {

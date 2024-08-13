@@ -5,7 +5,10 @@ namespace App\Controllers;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\DataDiriModel;
+use App\Models\PendidikanModel;
+use App\Models\OrangTuaModel;
 use App\Models\UserModel;
+use App\Models\DokumentModel;
 
 
 class User extends BaseController
@@ -14,11 +17,15 @@ class User extends BaseController
     protected $auth;
     protected $userModel;
     protected $dataDiriModel;
+    protected $ortuModel;
+    
     public function __construct()
     {
         $this->session = \Config\Services::session();
         $this->userModel = new UserModel();
         $this->dataDiriModel = new DataDiriModel();
+         $this->pendidikanModel = new PendidikanModel();
+        $this->ortuModel = new OrangTuaModel (); 
     }
     public function Proses()
     {
@@ -45,16 +52,27 @@ class User extends BaseController
         if (!$userId && !$username && !$userEmail) {
             return redirect()->to('/Login'); // Jika tidak ada session, arahkan ke halaman login
         } else {
-            $getdata_Diri = $this->dataDiriModel->where('email', $userEmail)->first();
+            $getdata_Diri = $this->dataDiriModel->where('id', $userId)->first();
             $getUsers = $this->userModel->where('id', $userId)->first();
+            $getPendidikan = $this->pendidikanModel->where('id', $userId)->first();
+            $getOrtu = $this->ortuModel->where('id', $userId)->first();
+
 
             $data = [
                 'title' => 'PMB STIMIK',
                 'users' => $getUsers,
-                'id' => $userId,
-                'model' => $getdata_Diri,
-                'viewport' => true
+                 'data_diri' => $getdata_Diri,
+                 'pendidikan' => $getPendidikan,
+                 'ortu' => $getOrtu,
+                 'id' => $userId,
+                 'model' => $getdata_Diri,
+                 'viewport' => true
             ];
+              if ($this->request->isAJAX()) {
+                return $this->response->setJSON($data);
+            }
+
+            // Load the view for normal requests
             return view('/pages/dash', $data);
         }
     }
@@ -154,6 +172,11 @@ class User extends BaseController
         // STRES
         if (password_verify($pasw, $data['password'])) {
             if ($this->userModel->save($data)) {
+                $table = $this->userModel->where('email', $data['email'])->first();
+                $this->session->set('user_id', $table['id']);
+                $this->session->set('user_name', $table['username']);
+                $this->session->set('user_email', $table['email']);
+                
                 $this->session->setFlashdata('Succes', 'Berhasil');
             } else {
                 $this->session->setFlashdata('error', 'Gagal');
