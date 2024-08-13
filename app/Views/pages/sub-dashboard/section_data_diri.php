@@ -163,16 +163,16 @@
         <form action="" id="pendidikan">
             <div class="form-section mt-5">
                 <h2>Data Pendidikan</h2>
-                <?php if (session()->getFlashdata('ep1')) : ?>
-                    <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                            <use xlink:href="#exclamation-triangle-fill" />
-                        </svg>
-                        <div>
-                            <?= session()->getFlashdata('ep1'); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                <!--<?php if (session()->getFlashdata('ep1')) : ?>-->
+                <!--    <div class="alert alert-danger d-flex align-items-center" role="alert">-->
+                <!--        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">-->
+                <!--            <use xlink:href="#exclamation-triangle-fill" />-->
+                <!--        </svg>-->
+                <!--        <div>-->
+                <!--            <?= session()->getFlashdata('ep1'); ?>-->
+                <!--        </div>-->
+                <!--    </div>-->
+                <!--<?php endif; ?>-->
                
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -310,18 +310,15 @@
         </form>
 
         <form id="uploadForm" enctype="multipart/form-data">
-            <div class="form-section mb-5">
+            
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong></strong><span id="formDOKUMENT"></span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            <div class="form-section mb-2">
+                
                 <h2>Dokument</h2>
-                <?php if (session()->getFlashdata('npost')) : ?>
-                    <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                            <use xlink:href="#exclamation-triangle-fill" />
-                        </svg>
-                        <div>
-                            <?= session()->getFlashdata('npost'); ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
                 <div class="row mb-2">
                     <div class="col-md-6">
                         <div class="">
@@ -364,6 +361,20 @@
         </form>
     </div>
 </div>
+<form id="majorForm">
+    <!-- Form data lainnya -->
+    <div class="form-section mb-5">
+        <h2>Jurusan / Program Studi</h2>
+        <div class="mb-3">
+            <label class="form-label" for="major">Pilih Jurusan !</label>
+            <select class="form-control" id="major" name="major">
+                <option value="Sistem Komputer">Sistem Komputer</option>
+                <option value="Sistem Informasi">Sistem Informasi</option>
+            </select>
+        </div>
+        <button type="submit" id="submitButton" class="btn btn-primary">Simpan</button>
+    </div>
+</form>
 <div id="loader-wrapper" style="display: none;">
     <div id="loader" class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -379,46 +390,96 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'json',
             success: function(data) {
+                let isDataComplete = true;
+    
                 // Isi data ke form
                 if (data.users) {
                     $('#email').val(data.users.email);
                     $('#username').val(data.users.username);
+                } else {
+                    isDataComplete = false;
                 }
+    
                 if (data.data_diri) {
-                    $('#nama').val(data.data_diri.nama);
+                    $('#nama').val(data.data_diri.name);
                     $('#nik').val(data.data_diri.nik);
-                    $('#tempat_lahir').val(data.data_diri.tempat_lahir);
-                    $('#tanggal_lahir').val(data.data_diri.tanggal_lahir);
-                    $('#jenis_kelamin').val(data.data_diri.jenis_kelamin);
+                    $('#no_hp').val(data.data_diri.noHp);
+                    $('#tempat_lahir').val(data.data_diri.tempatLahir);
+                    $('#tanggal_lahir').val(data.data_diri.tanggalLahir);
+                    $('#jenis_kelamin').val(data.data_diri.jenisKelamin);
                     $('#alamat').val(data.data_diri.alamat);
-                    $('#kota').val(data.data_diri.kota);
+                    $('#kota').val(data.data_diri.kotaKabupaten);
                     $('#provinsi').val(data.data_diri.provinsi);
-                    $('#kode_pos').val(data.data_diri.kode_pos);
+                    $('#rt_rw').val(data.data_diri.RtRw);
+                    $('#kode_pos').val(data.data_diri.kodePos);
+                } else {
+                    isDataComplete = false;
                 }
+    
                 if (data.pendidikan) {
-                    $('#jenjang').val(data.pendidikan.jenjang);
                     $('#nama_pendidikan').val(data.pendidikan.nama_pendidikan);
                     $('#tahun_lulus').val(data.pendidikan.tahun_lulus);
                     $('#jurusan').val(data.pendidikan.jurusan);
-                    $('#nilai_akhir').val(data.pendidikan.nilai_akhir);
+                    $('#nisn').val(data.pendidikan.nisn);
+                    $('#provinsi_pendidikan').val(data.pendidikan.provinsi_pendidikan);
+                    $('#kota_kabupaten_pendidikan').val(data.pendidikan.kota_kabupaten_pendidikan);
+                    $('#nama_sekolah').val(data.pendidikan.nama_sekolah);
+                    $('#no_ijazah').val(data.pendidikan.no_ijazah);
+                    $('#tanggal_ijazah').val(data.pendidikan.tanggal_ijazah);
+                    $('#nilai_un').val(data.pendidikan.nilai_un);
+                } else {
+                    isDataComplete = false;
                 }
+    
                 if (data.ortu) {
                     $('#nama_ayah').val(data.ortu.nama_ayah);
                     $('#nama_ibu').val(data.ortu.nama_ibu);
                     $('#pekerjaan_ayah').val(data.ortu.pekerjaan_ayah);
                     $('#pekerjaan_ibu').val(data.ortu.pekerjaan_ibu);
-                    $('#alamat_ortu').val(data.ortu.alamat_ortu);
-                    $('#kota_ortu').val(data.ortu.kota_ortu);
-                    $('#provinsi_ortu').val(data.ortu.provinsi_ortu);
-                    $('#kode_pos_ortu').val(data.ortu.kode_pos_ortu);
-                    $('#phone_ortu').val(data.ortu.phone_ortu);
+                    $('#pendidikan_ibu').val(data.ortu.pendidikan_ibu);
+                    $('#pendidikan_ayah').val(data.ortu.pendidikan_ayah);
+                    $('#no_hp_ayah').val(data.ortu.no_hp_ayah);
+                    $('#no_hp_ibu').val(data.ortu.no_hp_ibu);
+                     $('#formDOKUMENT').text("Dokument kamu sudah lengkap !!");
+                } else {
+                    isDataComplete = false;
                 }
+                
+                 if (data.jurusan) {
+                    $('#major').val(data.jurusan.major);
+                } else {
+                    isDataComplete = false;
+                }
+    
+                // Jika semua data berhasil dimuat, nonaktifkan semua tombol submit
+                if (isDataComplete) {
+                    $('button[id="submitButton"]').prop('disabled', true);
+                    
+                     $('button[id="uploadButton"]').prop('disabled', true);
+                     
+                    Swal.fire({
+                          title: "Data Kamu Sudah Lengkap <?= $users['username'] ?>.",
+                          width: 600,
+                          padding: "3em",
+                          color: "#0C0C0C",
+                          background: "#FFFFFF url(/images/trees.png)",
+                          backdrop: `
+                            rgba(0,0,123,0.4)
+                            url("/images/nyan-cat.gif")
+                            left top
+                            no-repeat
+                          `
+                        });
+                }
+                
+              
             },
             error: function() {
                 alert('Gagal memuat data. Silakan coba lagi.');
             }
         });
     }
+
 
     // Panggil fungsi untuk memuat data saat dokumen siap
     loadFormData();
@@ -444,8 +505,8 @@ $(document).ready(function() {
                         data: $(this).serialize(), 
                         dataType: 'JSON',
                         success: function(response) {
-                              $('#loader-wrapper').hide();
-                    $('body').removeClass('blur-background');
+                                $('#loader-wrapper').hide();
+                                   $('body').removeClass('blur-background');
                             if (response.status === "success") {
                                 Swal.fire({
                                     title: 'Berhasil',
@@ -456,8 +517,8 @@ $(document).ready(function() {
                                 // Menonaktifkan tombol setelah berhasil menyimpan
                                 $(formId + ' button[type="submit"]').prop('disabled', true);
                             } else {
-                                  $('#loader-wrapper').hide();
-                    $('body').removeClass('blur-background');
+                                    //   $('#loader-wrapper').hide();
+                                       $('body').removeClass('blur-background');
                                 Swal.fire({
                                     title: 'Opps..',
                                     text: response.message,
@@ -465,11 +526,18 @@ $(document).ready(function() {
                                 });
                             }
                         },
-                        error: function() {
+                        error: function(xhr) {
+                             var response = {};
+                                try {
+                                    response = JSON.parse(xhr.responseText);
+                                } catch (e) {
+                                    response.message = "Terjadi kesalahan pada server.";
+                                    response.icon = "error";
+                                }
                             // Menangani jika terjadi kesalahan AJAX
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'Terjadi kesalahan saat mengirim data.',
+                                text: response.message,
                                 icon: 'error'
                             });
                         }
@@ -501,6 +569,7 @@ $(document).ready(function() {
             // Tambahkan CSS ke loader-wrapper untuk posisi tengah dan blur background
             $('#loader-wrapper').css({
                 'position': 'fixed',
+                'display': 'block',
                 'top': '0',
                 'left': '0',
                 'width': '100%',
@@ -509,11 +578,11 @@ $(document).ready(function() {
                 'justify-content': 'center',
                 'align-items': 'center',
                 'background-color': 'rgba(255, 255, 255, 0.7)',
-                'z-index': '1000'
+                'z-index': '2000'
             });
 
             // Tambahkan efek blur pada seluruh halaman
-            $('body').css('filter', 'blur(5px)');
+            // $('body').css('filter', 'blur(2px)');
 
             // Tampilkan loader
             $('#loader-wrapper').show();
@@ -565,6 +634,61 @@ $(document).ready(function() {
         }
     });
 });
+
+    $('#majorForm').on('submit', function(event) {
+        event.preventDefault(); 
+
+        Swal.fire({
+            title: "Apa kamu yakin?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/formcontroller/submitdata/major',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response.status === "success") {
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Jurusan kamu Sudah Tersimpan',
+                                icon: response.icon
+                            });
+
+                            // Menonaktifkan tombol setelah berhasil menyimpan
+                            $('#majorForm button[type="submit"]').prop('disabled', true);
+                        } else {
+                            Swal.fire({
+                                title: 'Opps..',
+                                text: response.message,
+                                icon: response.icon
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        var response = {};
+                        try {
+                            response = JSON.parse(xhr.responseText);
+                        } catch (e) {
+                            response.message = "Terjadi kesalahan pada server.";
+                            response.icon = "error";
+                        }
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message,
+                            icon: 'error'
+                        });
+                    }
+                });
+            } else if (result.isDenied) {
+                Swal.fire("Pastikan Semua Sudah Benar", "", "info");
+            }
+        });
+    });
 
      
 });

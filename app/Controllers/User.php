@@ -18,6 +18,7 @@ class User extends BaseController
     protected $userModel;
     protected $dataDiriModel;
     protected $ortuModel;
+    protected $jurusan;
     
     public function __construct()
     {
@@ -25,6 +26,8 @@ class User extends BaseController
         $this->userModel = new UserModel();
         $this->dataDiriModel = new DataDiriModel();
          $this->pendidikanModel = new PendidikanModel();
+         $this->DokumentModel = new DokumentModel();
+        $this->jurusan = new \App\Models\majorModel(); 
         $this->ortuModel = new OrangTuaModel (); 
     }
     public function Proses()
@@ -56,14 +59,15 @@ class User extends BaseController
             $getUsers = $this->userModel->where('id', $userId)->first();
             $getPendidikan = $this->pendidikanModel->where('id', $userId)->first();
             $getOrtu = $this->ortuModel->where('id', $userId)->first();
-
-
+            $getDokument = $this->DokumentModel->where('id', $userId)->first();
             $data = [
                 'title' => 'PMB STIMIK',
                 'users' => $getUsers,
                  'data_diri' => $getdata_Diri,
                  'pendidikan' => $getPendidikan,
                  'ortu' => $getOrtu,
+                 'dokument' => $getDokument,
+                 'jurusan' => $this->jurusan->where('id', $userId)->first(),
                  'id' => $userId,
                  'model' => $getdata_Diri,
                  'viewport' => true
@@ -171,16 +175,32 @@ class User extends BaseController
 
         // STRES
         if (password_verify($pasw, $data['password'])) {
-            if ($this->userModel->save($data)) {
-                $table = $this->userModel->where('email', $data['email'])->first();
-                $this->session->set('user_id', $table['id']);
-                $this->session->set('user_name', $table['username']);
-                $this->session->set('user_email', $table['email']);
+            
+           try {
+                // Coba untuk menyimpan data ke database
+                if ($this->userModel->save($data)) {
+                    // Ambil kembali data user berdasarkan email
+                    $table = $this->userModel->where('email', $data['email'])->first();
+                    
+                    // Set sesi pengguna
+                    $this->session->set('user_id', $table['id']);
+                    $this->session->set('user_name', $table['username']);
+                    $this->session->set('user_email', $table['email']);
+                    
+                    // Set flashdata untuk pesan sukses
+                    $this->session->setFlashdata('Succes', 'Berhasil');
+                } else {
+                    // Jika penyimpanan gagal, set flashdata untuk pesan error
+                    $this->session->setFlashdata('error', 'Gagal menyimpan data.');
+                }
+            } catch (\Exception $e) {
+                // Tangkap error yang terjadi dan tampilkan pesan error
+                $this->session->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
                 
-                $this->session->setFlashdata('Succes', 'Berhasil');
-            } else {
-                $this->session->setFlashdata('error', 'Gagal');
+                // Anda juga bisa melakukan log error jika diperlukan
+                // log_message('error', 'Error saat menyimpan data: ' . $e->getMessage());
             }
+
         }
 
 
@@ -206,11 +226,11 @@ class User extends BaseController
                 return redirect()->to('/Dashboard');
             } else {
                 session()->setFlashdata('error', 'Password salah');
-                return redirect()->back()->withInput();
+                return redirect()->to('/Login')->withInput();
             }
         } else {
             session()->setFlashdata('error', 'Email tidak ditemukan');
-            return redirect()->back()->withInput();
+            return redirect()->to('/Login')->withInput();
         }
     }
 }

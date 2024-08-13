@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Pages::login');
 $routes->get('/Login', 'Pages::login');
 $routes->get('spmb-stimik/index.php/Login', 'Pages::login');
+// $routes->get('spmb-stimik/index.php', 'Pages::login');
 
 
 
@@ -41,6 +42,9 @@ $routes->post('/Dokument/save', 'Dokument::Submit');
 #--------------------------------------------------------------------
 
 
+// Jurusan
+$routes->post('/formcontroller/submitdata/major', 'MajorController::submitMajor');
+// Jurusan
 
 
 #--------------------------------------------------------------------

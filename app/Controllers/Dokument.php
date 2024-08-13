@@ -79,39 +79,81 @@ class Dokument extends Controller
                 if (!is_dir($userDir)) {
                     mkdir($userDir, 0777, true);
                 }
+                
+                $id = $this->session->get('user_id');
+                $dokumenData = [];
 
                 foreach ($files as $key => $file) {
                     if ($file->isValid() && !$file->hasMoved()) {
-                        $newName = $file->getRandomName(); // Menggunakan nama acak untuk menghindari duplikasi nama
+                        $newName = $file->getRandomName();
                         $file->move($userDir, $newName);
-                        $uploadedFiles[] = $newName;
+
+                        // Simpan data file ke array
+                       $dokumenData = [
+                            'id' => $id, // ID unik dokumen, sesuaikan sesuai kebutuhan
+                        
+                            // Foto KTP
+                            'foto_ktp' => $files['fotoKTP']->getName(), // Nama file untuk foto KTP
+                            'foto_ktp_type' => $files['fotoKTP']->getClientMimeType(), // Tipe MIME untuk foto KTP
+                            'foto_ktp_size' => $files['fotoKTP']->getSize(), // Ukuran file untuk foto KTP dalam byte
+                        
+                            // Foto KK
+                            'foto_kk' => $files['fotoKK']->getName(), // Nama file untuk foto KK
+                            'foto_kk_type' => $files['fotoKK']->getClientMimeType(), // Tipe MIME untuk foto KK
+                            'foto_kk_size' => $files['fotoKK']->getSize(), // Ukuran file untuk foto KK dalam byte
+                        
+                            // Foto SKHU
+                            'foto_skhu' => $files['fotoSKHU']->getName(), // Nama file untuk foto SKHU
+                            'foto_skhu_type' => $files['fotoSKHU']->getClientMimeType(), // Tipe MIME untuk foto SKHU
+                            'foto_skhu_size' => $files['fotoSKHU']->getSize(), // Ukuran file untuk foto SKHU dalam byte
+                        
+                            // Foto Ijazah
+                            'foto_ijazah' => $files['fotoIjazah']->getName(), // Nama file untuk foto Ijazah
+                            'foto_ijazah_type' => $files['fotoIjazah']->getClientMimeType(), // Tipe MIME untuk foto Ijazah
+                            'foto_ijazah_size' => $files['fotoIjazah']->getSize(), // Ukuran file untuk foto Ijazah dalam byte
+                        
+                            // Pas Foto
+                            'pas_foto' => $files['pasFoto']->getName(), // Nama file untuk Pas Foto
+                            'pas_foto_type' => $files['pasFoto']->getClientMimeType(), // Tipe MIME untuk Pas Foto
+                            'pas_foto_size' => $files['pasFoto']->getSize() / 1024, // Ukuran file untuk Pas Foto dalam byte
+                        
+                            'created_at' => date('Y-m-d H:i:s'), // Tanggal dan waktu pembuatan
+                            'updated_at' => date('Y-m-d H:i:s')  // Tanggal dan waktu terakhir diperbarui
+                        ];
+
                     }
                 }
 
-                if (!empty($uploadedFiles)) {
+                // Tambahkan ID, created_at, dan updated_at
+                $dokumenData = array_merge([
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ], $dokumenData);
+
+                try {
+                    // Simpan data dokumen ke database
+                    $this->DokumentModel->insert($dokumenData);
+
                     return $this->response->setJSON([
                         'status' => 'success',
-                        'message' => 'Berhasil',
-                        'uploaded_files' => $uploadedFiles,
+                        'message' => 'Data dokumen berhasil disimpan.',
                         'icon' => 'success'
                     ]);
-                } else {
+                } catch (\Exception $e) {
+                    // Menangani jika terjadi kesalahan saat menyimpan data
                     return $this->response->setJSON([
                         'status' => 'error',
-                        'message' => 'Terjadi kesalahan saat mengupload file',
+                        'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage(),
                         'icon' => 'error'
                     ]);
                 }
             } else {
                 $errors = $this->validation->getErrors();
-                foreach ($errors as $key => $value) {
-   return $this->response->setJSON([
+                return $this->response->setJSON([
                     'status' => 'error',
-                    'message' => $value,
+                    'message' => array_shift($errors),
                     'icon' => 'info'
                 ]);
-}
-                
             }
         }
 

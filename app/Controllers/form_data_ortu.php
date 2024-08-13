@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\OrangTuaModel;
+
 class form_data_ortu  extends Controller
 {
      protected $db;
@@ -98,13 +99,26 @@ class form_data_ortu  extends Controller
                 ]
                     ];
             if ($this->validate($data_ortu_rules)) {
-                $this->db->insert($data_ortu);
-                return $this->response->setJSON([
-                    'status' => 'success',
-                    'icon' => 'success',
-                    'model' => 'data_orangtua',
-                    'message' => 'Data Diri Kamu Berhasil Tersimpan'
-                ]);
+                try {
+                    // Menyisipkan data ke dalam tabel
+                    $this->db->insert($data_ortu);
+                
+                    // Jika berhasil, kembalikan respons JSON dengan status sukses
+                    return $this->response->setJSON([
+                        'status' => 'success',
+                        'icon' => 'success',
+                        'model' => 'data_orangtua',
+                        'message' => 'Data Diri Kamu Berhasil Tersimpan'
+                    ]);
+                } catch (\Exception $e) {
+                    // Jika terjadi kesalahan, kembalikan respons JSON dengan status error
+                    return $this->response->setJSON([
+                        'status' => 'error',
+                        'icon' => 'error',
+                        'model' => 'data_orangtua',
+                        'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()
+                    ]);
+                }
             } else {
                 $errors = $this->validation->getErrors();
                 foreach ($errors as $object => $value) {
