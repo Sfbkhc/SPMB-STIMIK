@@ -42,6 +42,18 @@ $routes->post('/Dokument/save', 'Dokument::Submit');
 #--------------------------------------------------------------------
 
 
+
+#--------------------------------------------------------------------
+# API BANK
+#--------------------------------------------------------------------
+$routes->get('/auth/redirect', 'AuthController::redirect');
+$routes->get('/auth/callback', 'AuthController::callback');
+$routes->get('/auth/logout', 'AuthController::logout');
+
+#--------------------------------------------------------------------
+# API BANK
+#--------------------------------------------------------------------
+
 // Jurusan
 $routes->post('/formcontroller/submitdata/major', 'MajorController::submitMajor');
 // Jurusan
@@ -52,8 +64,10 @@ $routes->post('/formcontroller/submitdata/major', 'MajorController::submitMajor'
 #--------------------------------------------------------------------
 $routes->post('/User/Login', 'User::login');
 $routes->get('/User', 'User::index');
-$routes->get('spmb-stimik/index.php/User/Proses', 
-'User::Proses');
+$routes->get(
+    'spmb-stimik/index.php/User/Proses',
+    'User::Proses'
+);
 $routes->post('/save', 'User::Save');
 
 
