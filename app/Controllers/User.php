@@ -26,8 +26,8 @@ class User extends BaseController
         $this->userModel = new UserModel();
         $this->dataDiriModel = new DataDiriModel();
          $this->pendidikanModel = new PendidikanModel();
-         $this->DokumentModel = new DokumentModel();
-        $this->jurusan = new \App\Models\majorModel(); 
+         $this->DokumentModel = new DokumentModel() ;
+        $this->jurusan = new \App\Models\majorModel() ; 
         $this->ortuModel = new OrangTuaModel (); 
     }
     public function Proses()

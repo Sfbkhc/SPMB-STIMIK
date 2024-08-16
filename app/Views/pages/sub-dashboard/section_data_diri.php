@@ -1,5 +1,5 @@
 <script src="/jQuery/jquery-3.7.1.min.js"></script>
-<div id="Form" class="content-section" style="display: none;">
+<div id="Form" class="container content-section" style="display: none;">
     <table align="center" cellpadding="5" cellspacing="0" style="width:90%;" class="container mt-6">
         <tbody>
             <tr>
@@ -27,9 +27,9 @@
             </tr>
         </tbody>
     </table>
-    <!-- <div class="page-title"> Lengkapi Form Berikut... </div> -->
+
     <div class="container">
-        <!-- Form Data Diri -->
+       
         <form id="data_diri">
             <div class="form-section mt-3">
                 <h2>Data Diri</h2>
@@ -310,12 +310,13 @@
         </form>
 
         <form id="uploadForm" enctype="multipart/form-data">
-            
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong></strong><span id="formDOKUMENT"></span>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            
+            <?php if ($dokument): ?>
+                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong></strong><span id="formDOKUMENT"></span>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+           
             <div class="form-section mb-2">
                 
                 <h2>Dokument</h2>
@@ -359,22 +360,23 @@
                 <button id="uploadButton" type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </form>
+        <form id="majorForm">
+            <!-- Form data lainnya -->
+            <div class="form-section mb-5">
+                <h2>Jurusan / Program Studi</h2>
+                <div class="mb-3">
+                    <label class="form-label" for="major">Pilih Jurusan !</label>
+                    <select class="form-control" id="major" name="major">
+                        <option value="Sistem Komputer">Sistem Komputer</option>
+                        <option value="Sistem Informasi">Sistem Informasi</option>
+                    </select>
+                </div>
+                <button type="submit" id="submitButton" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
     </div>
 </div>
-<form id="majorForm">
-    <!-- Form data lainnya -->
-    <div class="form-section mb-5">
-        <h2>Jurusan / Program Studi</h2>
-        <div class="mb-3">
-            <label class="form-label" for="major">Pilih Jurusan !</label>
-            <select class="form-control" id="major" name="major">
-                <option value="Sistem Komputer">Sistem Komputer</option>
-                <option value="Sistem Informasi">Sistem Informasi</option>
-            </select>
-        </div>
-        <button type="submit" id="submitButton" class="btn btn-primary">Simpan</button>
-    </div>
-</form>
+
 <div id="loader-wrapper" style="display: none;">
     <div id="loader" class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -383,7 +385,28 @@
 
 <script>
 $(document).ready(function() {
-    
+      function notifyAndRedirectToVerification() {
+            // Tampilkan alert
+            function showSection(sectionId) {
+                // Menyembunyikan semua section
+                $('.content-section').hide();
+            
+                // Menampilkan section yang ditargetkan
+                $('#' + sectionId).show();
+            }
+
+            Swal.fire({
+                title: "Dokumen Lengkap",
+                text: "Dokumen Anda sudah lengkap. Silakan kirim data-data Anda untuk diverifikasi oleh panitia PMB.",
+                icon: "info"
+            }).then(() => {
+               
+                showSection('Pembayaran');
+                 $('#message_verivikasi').text("Administrasi Pendaftaran Wajib di selesaikan Sebelum Data di Verifikasi Panitia !!");
+                
+            });
+        }
+
      function loadFormData() {
         $.ajax({
             url: '/Dashboard',
@@ -395,13 +418,13 @@ $(document).ready(function() {
                 // Isi data ke form
                 if (data.users) {
                     $('#email').val(data.users.email);
-                    $('#username').val(data.users.username);
+                    $('#nama').val(data.users.username);
                 } else {
                     isDataComplete = false;
                 }
     
                 if (data.data_diri) {
-                    $('#nama').val(data.data_diri.name);
+                   
                     $('#nik').val(data.data_diri.nik);
                     $('#no_hp').val(data.data_diri.noHp);
                     $('#tempat_lahir').val(data.data_diri.tempatLahir);
@@ -456,20 +479,7 @@ $(document).ready(function() {
                     $('button[id="submitButton"]').prop('disabled', true);
                     
                      $('button[id="uploadButton"]').prop('disabled', true);
-                     
-                    Swal.fire({
-                          title: "Data Kamu Sudah Lengkap <?= $users['username'] ?>.",
-                          width: 600,
-                          padding: "3em",
-                          color: "#0C0C0C",
-                          background: "#FFFFFF url(/images/trees.png)",
-                          backdrop: `
-                            rgba(0,0,123,0.4)
-                            url("/images/nyan-cat.gif")
-                            left top
-                            no-repeat
-                          `
-                        });
+                     notifyAndRedirectToVerification();
                 }
                 
               
@@ -498,6 +508,20 @@ $(document).ready(function() {
                 denyButtonText: `Don't save`
             }).then((result) => {
                 if (result.isConfirmed) {
+                     $('#loader-wrapper').css({
+                                'position': 'fixed',
+                                'display': 'block',
+                                'top': '0',
+                                'left': '0',
+                                'width': '100%',
+                                'height': '100%',
+                                'display': 'flex',
+                                'justify-content': 'center',
+                                'align-items': 'center',
+                                'background-color': 'rgba(255, 255, 255, 0.7)',
+                                'z-index': '2000'
+                            });
+                            $('#loader-wrapper').show();    
                     $.ajax({
                         url: url,   
  
@@ -506,7 +530,7 @@ $(document).ready(function() {
                         dataType: 'JSON',
                         success: function(response) {
                                 $('#loader-wrapper').hide();
-                                   $('body').removeClass('blur-background');
+                                 $('body').css('filter', 'none');
                             if (response.status === "success") {
                                 Swal.fire({
                                     title: 'Berhasil',
@@ -527,6 +551,8 @@ $(document).ready(function() {
                             }
                         },
                         error: function(xhr) {
+                            $('#loader-wrapper').hide();
+                             $('body').css('filter', 'none');
                              var response = {};
                                 try {
                                     response = JSON.parse(xhr.responseText);
@@ -659,8 +685,8 @@ $(document).ready(function() {
                                 icon: response.icon
                             });
 
-                            // Menonaktifkan tombol setelah berhasil menyimpan
                             $('#majorForm button[type="submit"]').prop('disabled', true);
+                            notifyAndRedirectToVerification();
                         } else {
                             Swal.fire({
                                 title: 'Opps..',

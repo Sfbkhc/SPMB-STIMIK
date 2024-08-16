@@ -1,156 +1,71 @@
 <div id="Pembayaran" class="content-section" style="display: none;">
-    <table align="center" cellpadding="5" cellspacing="0" style="width:90%;" class="container mt-6">
-        <tbody>
-            <tr>
-                <td style="text-align:left; vertical-align:top">
-                    <table width="100%" align="center" style="color:black; font-size:16px; font-weight:bold;">
-                        <tbody>
-                            <tr>
-                                <!-- <td style="color:black; vertical-align: top; width: 10%; text-align: center;">
-                                    <img src="/img/STIMIK-removebg-preview.png" width="75">
-                                </td> -->
-                                <td style="color:black; vertical-align: top; width: 90%; text-align: center;">
-                                    KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN<br>
-                                    STIMIK BINA BANGSA KENDARI<br>
-                                    <span style="font-weight: normal; font-size: 10px;">
-                                        Jalan Jend. A.H Nasution Poros Andonohu No. 105, Kendari Sulawesi Tenggara<br>
-                                        Telp/Fax. (0401) 3192081/ 3193710 email: info@stimikkendari.ac.id website: http://stimikkendari.ac.id
-                                    </span>
-                                    <hr>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:center; vertical-align:top; margin-top:-5px">
-                    <span style="font-size:14px;"><strong>SLIP PEMBAYARAN/ LOGIN INFO</strong></span>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align:top">
-                    <table border="0" cellpadding="3" cellspacing="0" style="width:100%; font-size:13px;">
-                        <tbody>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Nama Peserta</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%"><?= $users['username']; ?></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">ID Bayar/ User ID</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">202405200<?= $users['id']; ?></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Password</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%"><?= $users['password']; ?></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Jenis Pendaftaran</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">Pendaftaran Mahasiswa Baru (PROGRAM SARJANA (S1) TAHUN 2024) Jenjang S1</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Biaya Pendaftaran</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">Rp. 150,000 (seratus lima puluh ribu)</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Bank Tujuan/ No. Rekening/ Pemilik Rekening</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">PANIN BANK, Host to Host No. Rek Tujuan 24400225</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Status Bayar</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">BELUM LUNAS</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Waktu Pendaftaran</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">01-08-2024 19:45:37</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:23%">Jenjang</td>
-                                <td style="text-align:left; vertical-align:top; width:2%">:</td>
-                                <td style="text-align:left; vertical-align:top; width:75%">S1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align:top">
-                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%; font-size:13px;">
-                        <tbody>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top;">
-                                    <h5><strong>Cara Pembayaran :</strong></h5>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%; font-size:13px;">
-                        <tbody>
-                            <tr>
-                                <td style="text-align:left; vertical-align:top; width:33%">
-                                    <div class="metode1">Virtual Billing</div>
-                                    <ul>
-                                        <li>Pilih Menu Pembayaran;</li>
-                                        <li>Masukkan Nomor ID sebagai tujuan;</li>
-                                        <li>Akan muncul nilai tagihan pembayaran;</li>
-                                        <li>Pilih Ya, transaksi selesai dan cetak bukti transaksi.</li>
-                                </td>
-                                <td style="text-align:left; vertical-align:top; width:33%">
-                                    <div class="metode2">Melalui BANK PANIN</div>
-                                    <ul>
-                                        <li>Pilih Menu Transfer;</li>
-                                        <li>Masukkan Nomor Rekening 900560224400225 sebagai no.rekening tujuan;</li>
-                                        <li>Masukkan nominal sesuai tagihan;</li>
-                                        <li>Proses transaksi, pilih YA, dan selesai.</li>
-                                    </ul>
-                                </td>
-                                <td style="text-align:left; vertical-align:top; width:33%">
-                                    <div class="metode3">Melalui BANK BCA</div>
-                                    <ul>
-                                        <li>Pilih Menu Transfer Antar Bank;</li>
-                                        <li>Masukkan Nomor Rekening 451900560224400225 sebagai tujuan;</li>
-                                        <li>Masukkan nominal sesuai tagihan;</li>
-                                        <li>Proses transaksi, pilih YA, dan selesai.</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:left; vertical-align:top;">
-                    <div style="color:green; font-weight:bold; font-size:13px;">
-                        *Kode PANIN BANK : 451, Kode Virtual Account : 900, Kode STIMIK : 5602.
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:left; vertical-align:top;"><strong>Perhatian :</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:left; vertical-align:top;">
-                    <ul>
-                        <li>Simpan dan print info login ini sebagai bukti pendaftaran;</li>
-                        <li>Jika telah melakukan pembayaran, login dengan memasukkan data USER ID dan PASSWORD melalui laman <a href="https://stimikkendari.ac.id/login">https://stimikkendari.ac.id/login</a>;</li>
-                        <li>Proses berikutnya menunggu validasi online dari pihak panitia penyelenggara;</li>
-                        <li>Jika sudah tervalidasi, lengkapi Pilihan Program Studi (prodi), finalisasi, dan cetak kartu ujian;</li>
-                        <li>User ID dan Password bersifat rahasia menyangkut data peserta pendaftar;</li>
-                        <li><b>Informasi lebih lanjut kunjungi website resmi kami <a href="https://stimikkendari.ac.id">https://stimikkendari.ac.id</a></b></li>
-                        <li>Hubungi selama jam kantor 08.00 sd 17.00 WITA: 081913533832</li>
-                    </ul>
-                    <!-- Ujian Jalur Mandiri Lokal menggunakan CBT di Lab Komputer <strong>IAIN Kendari</strong> -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <?php if ($jurusan): ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong></strong><span id="message_verivikasi"></span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+    <section>
+  <div class="container py-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="row d-flex justify-content-center pb-5">
+          <div class="col-md-7 col-xl-5 mb-4 mb-md-0">
+            <div class="py-4 d-flex flex-row">
+              <h5><span class="far fa-check-square pe-2"></span><b>TERSEDIA</b> |</h5>
+              <span class="ps-2">Bayar</span>
+            </div>
+            <h4 class="text-success">Rp 150.000</h4>
+            <h4>Pendaftaran Mahasiswa Baru</h4>
+            <p><b>Nama Peserta: </b> <?= $users['username']; ?></p> 
+            <p><b>Nomor Peserta: </b> <?= $users['id']; ?></p> 
+            <p>
+              <b>Tanggung Jawab Peserta <span class="text-success">Rp 150.000</span></b>
+            </p>
+            <p>
+              Pembayaran ini berlaku untuk pendaftaran mahasiswa baru dan harus dibayar menggunakan Virtual Account yang tersedia.
+            </p>
+            <div class="pt-2">
+              <form class="pb-3">
+                <div class="d-flex flex-row pb-3">
+                  <div class="d-flex align-items-center pe-2">
+                    <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="..." checked />
+                  </div>
+                  <div class="rounded border d-flex w-100 p-3 align-items-center">
+                    <p class="mb-0">
+                      <i class="fas fa-university fa-lg text-primary pe-2"></i>Virtual Account
+                    </p>
+                    <div class="ms-auto">No. VA: 1234567890</div>
+                  </div>
+                </div>
+              </form>
+              <input type="button" value="Lanjutkan ke Pembayaran" data-mdb-ripple-init class="btn btn-primary btn-block btn-lg" />
+            </div>
+          </div>
+
+          <div class="col-md-5 col-xl-4 offset-xl-1">
+            <div class="py-4 d-flex justify-content-end">
+              <h6><a href="#!">Batalkan dan kembali ke situs</a></h6>
+            </div>
+            <div class="rounded d-flex flex-column p-2 bg-body-tertiary">
+              <div class="p-2 me-3">
+                <h4>Ringkasan Pesanan</h4>
+              </div>
+              <div class="p-2 d-flex">
+                <div class="col-8">Harga Pendaftaran</div>
+                <div class="ms-auto">Rp 150.000</div>
+              </div>
+              <div class="border-top px-2 mx-2"></div>
+              <div class="p-2 d-flex pt-3">
+                <div class="col-8"><b>Total</b></div>
+                <div class="ms-auto"><b class="text-success">Rp 150.000</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
