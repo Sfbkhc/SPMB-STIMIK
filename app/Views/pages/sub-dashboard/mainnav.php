@@ -31,24 +31,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-content="Dokument" id="disabledDocument">
-                            <span class="nav-icon"><i class="bi bi-folder"></i></span>
-                            <span>Dokument</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-content="Panduan" id="disabledPanduan">
-                            <span class="nav-icon"><i class="bi bi-question-circle"></i></span>
-                            <span>Panduan dan FAQ</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-content="Kontak" id="disabledKontak">
-                            <span class="nav-icon"><i class="bi bi-telephone"></i></span>
-                            <span>Kontak Bantuan</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" data-content="LogOut" id="out">
                             <span class="nav-icon"><i class="bi bi-box-arrow-left"></i></span>
                             <span>LogOut</span>

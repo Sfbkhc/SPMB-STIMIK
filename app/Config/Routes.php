@@ -50,6 +50,10 @@ $routes->get('/auth/redirect', 'AuthController::redirect');
 $routes->get('/auth/callback', 'AuthController::callback');
 $routes->get('/auth/logout', 'AuthController::logout');
 
+// Tambahkan ke routes di app/Config/Routes.php
+$routes->post('/bni', 'BNIController::index');
+
+
 #--------------------------------------------------------------------
 # API BANK
 #--------------------------------------------------------------------

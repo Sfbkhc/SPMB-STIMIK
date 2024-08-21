@@ -1,4 +1,5 @@
 <div id="Pembayaran" class="content-section" style="display: none;">
+  
     <?php if ($jurusan): ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
               <strong></strong><span id="message_verivikasi"></span>
@@ -25,22 +26,49 @@
             <p>
               Pembayaran ini berlaku untuk pendaftaran mahasiswa baru dan harus dibayar menggunakan Virtual Account yang tersedia.
             </p>
-            <div class="pt-2">
-              <form class="pb-3">
-                <div class="d-flex flex-row pb-3">
-                  <div class="d-flex align-items-center pe-2">
-                    <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="..." checked />
-                  </div>
-                  <div class="rounded border d-flex w-100 p-3 align-items-center">
-                    <p class="mb-0">
-                      <i class="fas fa-university fa-lg text-primary pe-2"></i>Virtual Account
-                    </p>
-                    <div class="ms-auto">No. VA: 1234567890</div>
-                  </div>
-                </div>
-              </form>
-              <input type="button" value="Lanjutkan ke Pembayaran" data-mdb-ripple-init class="btn btn-primary btn-block btn-lg" />
+           <div class="pt-2">
+                <form class="pb-3" id="paymentForm">
+                    <div class="d-flex flex-row pb-3">
+                        <div class="d-flex align-items-center pe-2">
+                            <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="..." checked />
+                        </div>
+                        <div class="rounded border d-flex w-100 p-3 align-items-center">
+                            <p class="mb-0">
+                                <i class="fas fa-university fa-lg text-primary pe-2"></i>Virtual Account
+                            </p>
+                            <div class="ms-auto">No. VA: 1234567890</div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Lanjutkan ke Pembayaran" id="submitBtn" data-mdb-ripple-init class="btn btn-primary btn-block btn-lg" />
+                </form>
             </div>
+            
+            <script>
+                $(document).ready(function() {
+                    $("#paymentForm").submit(function(event) {
+                        event.preventDefault(); // Prevent default form submission
+            
+                        var formData = $(this).serialize(); // Get form data
+            
+                        $.ajax({
+                            type: "POST", // Or GET, depending on your requirement
+                            url: "/bni", // Replace with your endpoint URL
+                            data: formData,
+                            success: function(response) {
+                                // Handle success response from server
+                                console.log(response);
+                                alert("Pembayaran berhasil!");
+                            },
+                            error: function(xhr, status, error) {
+                                // Handle error if it occurs
+                                console.error(xhr.responseText);
+                                alert("Terjadi kesalahan saat memproses pembayaran.");
+                            }
+                        });
+                    });
+                });
+            </script>
+
           </div>
 
           <div class="col-md-5 col-xl-4 offset-xl-1">

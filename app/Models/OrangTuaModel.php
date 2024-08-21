@@ -16,6 +16,7 @@ class OrangTuaModel extends Model
         'no_hp_ayah',
         'nama_ibu',
         'pekerjaan_ibu',
+        'no_hp_ibu',
     ];
 
     // rules

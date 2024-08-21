@@ -45,6 +45,11 @@ class OneGatePayment
         $data = [
             RequestOptions::JSON => array_merge($body, $signature)
         ];
+        
+         log_message('info', 'Mengirim permintaan ke API BNI dengan data berikut:');
+        log_message('info', 'URL: ' . $url);
+        log_message('info', 'Data: ' . json_encode($data));
+
 
         $response = $this->requestOgp($url, $data);
 

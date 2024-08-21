@@ -93,14 +93,29 @@
                 </div>
             </div>
         </div>
-
         <!-- Status Details -->
         <div class="container mt-4">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title">Detail Status Pendaftaran <span id="completion-percentage">0%</span></h5>
+                            <h5 class="card-title">Detail Status Pendaftaran <span id="completion-percentage">%</span></h5>
+                            <script>
+                                $(document).ready(function() {
+                                // Function to count icons with specific classes and calculate percentage
+                                function updateIconStats() {
+                                    var totalItems = $('i').length; // Total number of icons
+                                    var checkedCount = $('i.bi-check-circle-fill.text-success').length; // Count of checked icons
+                                    var completionPercentage = totalItems > 0 ? (checkedCount / totalItems) * 100 : 0; // Calculate percentage
+                    
+                                    $('#checked-icons-count').text(checkedCount); // Update checked count
+                                    $('#completion-percentage').text(`${Math.round(completionPercentage)}%`); // Update percentage
+                                }
+                    
+                                // Call the function on document ready
+                                updateIconStats();
+                            });
+                           </script>
                         </div>
                         <div class="card-body">
                             <ul class="list-group">
@@ -114,9 +129,9 @@
                                     </div>
                                     <div id="data-pribadi-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Nama Lengkap: <?= isset($userData['fullName']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Tempat, Tanggal Lahir: <?= isset($userData['birthPlaceDate']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Alamat: <?= isset($userData['address']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Nama Lengkap: <?= isset($data_diri['name']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Tempat, Tanggal Lahir: <?= isset($data_diri['tanggalLahir']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Alamat: <?= isset($data_diri['alamat']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
                                             <!-- Tambah detail lainnya sesuai kebutuhan -->
                                         </ul>
                                     </div>
@@ -131,9 +146,9 @@
                                     </div>
                                     <div id="data-orang-tua-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Nama Ayah: <?= isset($parentData['fatherName']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Nama Ibu: <?= isset($parentData['motherName']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Alamat Orang Tua: <?= isset($parentData['parentAddress']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Nama Ayah: <?= isset($ortu['nama_ayah']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Nama Ibu: <?= isset($ortu['nama_ibu']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Alamat Orang Tua: <?= isset($ortu) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
                                             <!-- Tambah detail lainnya sesuai kebutuhan -->
                                         </ul>
                                     </div>
@@ -148,9 +163,9 @@
                                     </div>
                                     <div id="dokumen-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>KTP: <?= isset($documents['ktp']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Ijazah: <?= isset($documents['diploma']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                            <li>Foto: <?= isset($documents['photo']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>KTP: <?= isset($dokument['foto_ktp']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Ijazah: <?= isset($dokument['foto_ijazah']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Foto: <?= isset($dokument['pas_foto']) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
                                             <!-- Tambah detail lainnya sesuai kebutuhan -->
                                         </ul>
                                     </div>
@@ -165,7 +180,7 @@
                                     </div>
                                     <div id="pilihan-jurusan-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Jurusan Pilihan: <?= isset($selectedMajor) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Memilih Jurusan: <?= isset($jurusan) ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -179,7 +194,7 @@
                                     </div>
                                     <div id="verifikasi-data-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Data Tervalidasi: <?= isset($dataVerified) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Data Tervalidasi: <?= isset($dataVerified) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Terverivikasi' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Di Verifikasi' ?></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -193,7 +208,7 @@
                                     </div>
                                     <div id="pembayaran-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Sudah Bayar: <?= isset($paymentCompleted) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Sudah Bayar: <?= isset($paymentCompleted) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Membayar' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Melakukan Pembayaran' ?></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -211,21 +226,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <!-- Detail Seleksi -->
-                                <li class="list-group-item">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>Seleksi</span>
-                                        <button class="btn btn-link btn-sm" data-toggle="collapse" data-target="#seleksi-detail">
-                                            <i class="bi bi-chevron-down"></i>
-                                        </button>
-                                    </div>
-                                    <div id="seleksi-detail" class="collapse">
-                                        <ul class="list-unstyled mt-2">
-                                            <li>Ikut Seleksi: <?= isset($selectionParticipated) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <!-- Detail Pengumuman -->
+                               
                                 <li class="list-group-item">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span>Pengumuman</span>
@@ -235,7 +236,7 @@
                                     </div>
                                     <div id="pengumuman-detail" class="collapse">
                                         <ul class="list-unstyled mt-2">
-                                            <li>Diterima/Tidak Diterima: <?= isset($announcementStatus) ? '<i class="bi bi-check-circle-fill text-success"></i> Sudah Lengkap' : '<i class="bi bi-x-circle-fill text-danger"></i> Belum Lengkap' ?></li>
+                                            <li>Diterima/Tidak Diterima: <?= isset($announcementStatus) ? '<i class="bi bi-check-circle-fill text-success"></i> Di Terima' : '<i class="bi bi-x-circle-fill text-danger"></i> Proses' ?></li>
                                         </ul>
                                     </div>
                                 </li>

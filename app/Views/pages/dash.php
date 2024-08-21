@@ -1,7 +1,8 @@
 <?= $this->extend('/layout/template-dashboard'); ?>
+  
 
 <?= $this->section('content'); ?>
-
+<script src="/jQuery/jquery-3.7.1.min.js"></script>
 <!-- Main content -->
 <main id="main-content" class="content">
 

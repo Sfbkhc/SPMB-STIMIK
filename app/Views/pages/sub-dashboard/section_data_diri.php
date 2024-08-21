@@ -1,4 +1,4 @@
-<script src="/jQuery/jquery-3.7.1.min.js"></script>
+
 <div id="Form" class="container content-section" style="display: none;">
     <table align="center" cellpadding="5" cellspacing="0" style="width:90%;" class="container mt-6">
         <tbody>
@@ -310,7 +310,7 @@
         </form>
 
         <form id="uploadForm" enctype="multipart/form-data">
-            <?php if ($dokument): ?>
+            <?php if (isset($dokument)): ?>
                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
                   <strong></strong><span id="formDOKUMENT"></span>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -402,7 +402,7 @@ $(document).ready(function() {
             }).then(() => {
                
                 showSection('Pembayaran');
-                 $('#message_verivikasi').text("Administrasi Pendaftaran Wajib di selesaikan Sebelum Data di Verifikasi Panitia !!");
+                 $('#message_verivikasi').text("Data - data anda sedang kami periksa , mohon menunggu beberapa waktu !");
                 
             });
         }
@@ -430,6 +430,7 @@ $(document).ready(function() {
                     $('#tempat_lahir').val(data.data_diri.tempatLahir);
                     $('#tanggal_lahir').val(data.data_diri.tanggalLahir);
                     $('#jenis_kelamin').val(data.data_diri.jenisKelamin);
+                    $('#agama').val(data.data_diri.agama);
                     $('#alamat').val(data.data_diri.alamat);
                     $('#kota').val(data.data_diri.kotaKabupaten);
                     $('#provinsi').val(data.data_diri.provinsi);
